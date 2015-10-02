@@ -55,9 +55,9 @@ public class JssTextAreaController extends AbstractJssController {
 
     private final JssSimpleModel model;
 
-    private int shellLineStart = -1;
+    private transient int shellLineStart = -1;
 
-    private int commandLineStart = -1;
+    private transient int commandLineStart = -1;
 
     // #########################################################################
     // Constructors
