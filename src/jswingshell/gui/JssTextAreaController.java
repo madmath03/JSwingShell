@@ -23,15 +23,17 @@ public class JssTextAreaController extends AbstractJssController {
 
     /**
      * The default end of line.
+     *
      * @since 1.4
      */
     private static final String EOL1 = "\n";
     /**
      * The system end of line.
+     *
      * @since 1.4
      */
     private static final String EOL2;
-    
+
     static {
         String eol = EOL1;
         try {
@@ -47,7 +49,7 @@ public class JssTextAreaController extends AbstractJssController {
     /**
      * The new line separator.
      */
-    private static final String NEW_LINE = EOL2;
+    protected static final String NEW_LINE = EOL2;
 
     private final JssTextArea view;
 
@@ -142,12 +144,10 @@ public class JssTextAreaController extends AbstractJssController {
         }
 
         // Init display properties
-        getView().setBackground(Color.black);
-        getView().setForeground(Color.white);
-        getView().setSelectedTextColor(Color.black);
-        getView().setSelectionColor(Color.white);
-        getView().setTabSize(4);
-        getView().setFont(new java.awt.Font("LucidaSans", Font.BOLD, 11));
+        setBackground(Color.black);
+        setForeground(Color.white);
+        setTabSize(2);
+        setFont(new java.awt.Font("LucidaSans", Font.BOLD, 11));
 
         addNewCommandLine();
         unlockShellTextArea();
@@ -461,4 +461,148 @@ public class JssTextAreaController extends AbstractJssController {
     // Command management
     // #########################################################################
     // Model related methods
+    // #########################################################################
+    // Implementation specific methods
+    /**
+     * Gets the background color of this component.
+     *
+     * @return this component's background color; if this component does not
+     * have a background color, the background color of its parent is returned
+     * @see #setBackground(java.awt.Color) 
+     *
+     * @since 1.4
+     */
+    public Color getBackground() {
+        return getView().getBackground();
+    }
+
+    /**
+     * Sets the background color and the current color used to render the
+     * selected text of this component.
+     *
+     * <p>
+     * The background color is used only if the component is opaque.</p>
+     *
+     * <p>
+     * It is up to the look and feel to honor this property, some may choose to
+     * ignore it.</p>
+     *
+     * <p>
+     * Setting the color to {@code null} is the same as {@code Color.black}.
+     * Setting the color results in a PropertyChange event ("selectedTextColor")
+     * being fired.</p>
+     *
+     * @param backgroundColor the desired background {@code Color}
+     * @see #getBackground() 
+     *
+     * @since 1.4
+     */
+    public void setBackground(Color backgroundColor) {
+        if (backgroundColor == null) {
+            backgroundColor = Color.black;
+        }
+        getView().setBackground(backgroundColor);
+        getView().setSelectedTextColor(backgroundColor);
+    }
+
+    /**
+     * Gets the foreground color of this component.
+     *
+     * @return this component's foreground color; if this component does not
+     * have a foreground color, the foreground color of its parent is returned
+     * @see #setForeground(java.awt.Color) 
+     *
+     * @since 1.4
+     */
+    public Color getForeground() {
+        return getView().getForeground();
+    }
+
+    /**
+     * Sets the foreground color and the current color used to render the
+     * selection of this component.
+     *
+     * <p>
+     * It is up to the look and feel to honor this property, some may choose to
+     * ignore it.</p>
+     *
+     * <p>
+     * Sets the current color used to render the selection. Setting the color to
+     * {@code null} is the same as setting {@code Color.white}. Setting the
+     * color results in a PropertyChange event ("selectionColor").</p>
+     *
+     * @param foregroundColor the desired foreground {@code Color}
+     * @see #getForeground() 
+     *
+     * @since 1.4
+     */
+    public void setForeground(Color foregroundColor) {
+        if (foregroundColor == null) {
+            foregroundColor = Color.white;
+        }
+        getView().setForeground(foregroundColor);
+        getView().setSelectionColor(foregroundColor);
+    }
+
+    /**
+     * Gets the number of characters used to expand tabs.
+     *
+     * <p>
+     * If the document is null or doesn't have a tab setting, return a default
+     * of 8.</p>
+     *
+     * @return the number of characters
+     * @see #setTabSize(int) 
+     *
+     * @since 1.4
+     */
+    public int getTabSize() {
+        return getView().getTabSize();
+    }
+
+    /**
+     * Sets the number of characters to expand tabs to.
+     *
+     * <p>
+     * This will be multiplied by the maximum advance for variable width fonts.
+     * A PropertyChange event ("tabSize") is fired when the tab size
+     * changes.</p>
+     *
+     * @param size number of characters to expand to
+     * @see #getTabSize() 
+     *
+     * @since 1.4
+     */
+    public void setTabSize(int size) {
+        getView().setTabSize(size);
+    }
+
+    /**
+     * Gets the font of this component.
+     *
+     * @return this component's font; if a font has not been set for this
+     * component, the font of its parent is returned
+     * @see #setFont(java.awt.Font) 
+     *
+     * @since 1.4
+     */
+    public java.awt.Font getFont() {
+        return getView().getFont();
+    }
+
+    /**
+     * Sets the current font.
+     *
+     * <p>
+     * This removes cached row height and column width so the new font will be
+     * reflected, and calls revalidate().</p>
+     *
+     * @param f the font to use as the current font
+     * @see #getFont() 
+     *
+     * @since 1.4
+     */
+    public void setFont(java.awt.Font f) {
+        getView().setFont(f);
+    }
 }
