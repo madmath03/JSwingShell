@@ -69,6 +69,9 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      */
     public static final int COMMAND_EMPTY_STATUS = 0x0008;
 
+    /**
+     * Default publication level.
+     */
     public static final PublicationLevel DEFAULT_LEVEL = PublicationLevel.WARNING;
 
     private CommandHistory commandHistory;
@@ -398,7 +401,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      * Interpret a command.
      *
      * @param command the command to interpret. Action and arguments will be
-     * extracter from it.
+     * extracted from it.
      * @param addCommandToHistory Should we add the command to the history?
      * @return the action's return code.
      */
