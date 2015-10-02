@@ -3,6 +3,7 @@ package jswingshell.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.Document;
 import jswingshell.AbstractJssController;
@@ -20,7 +21,33 @@ public class JssTextAreaController extends AbstractJssController {
      */
     private static final Logger LOGGER = Logger.getLogger(JssTextAreaController.class.getName());
 
-    private static final String NEW_LINE = "\n";
+    /**
+     * The default end of line.
+     * @since 1.4
+     */
+    private static final String EOL1 = "\n";
+    /**
+     * The system end of line.
+     * @since 1.4
+     */
+    private static final String EOL2;
+    
+    static {
+        String eol = EOL1;
+        try {
+            eol = System.getProperty("line.separator", EOL1);
+        } catch (SecurityException e) {
+            LOGGER.log(Level.SEVERE, "Could not retrieve the system line separator: {0}", e.getMessage());
+            eol = EOL1;
+        } finally {
+            EOL2 = eol;
+        }
+    }
+
+    /**
+     * The new line separator.
+     */
+    private static final String NEW_LINE = EOL2;
 
     private final JssTextArea view;
 
