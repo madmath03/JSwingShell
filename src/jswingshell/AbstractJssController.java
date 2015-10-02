@@ -33,8 +33,40 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      */
     private static final String COMMAND_LINE_PREFIX = "> ";
 
+    /**
+     * Default return status code for a successful execution of an action.
+     * @since 1.4
+     */
+    public static final int COMMAND_SUCCESS = IJssAction.SUCCESS;
+
+    /**
+     * Default return status code for a failed execution of an action.
+     * @since 1.4
+     */
+    public static final int COMMAND_ERROR = IJssAction.ERROR;
+
+    /**
+     * Default return status code for an execution still in progress.
+     *
+     * <p>
+     * This is usually used by action that operates in separate threads. Such
+     * actions are responsible for alerting the shell of their end by themselves
+     * and thus should return a specific status code to alert the shell
+     * environment.</p>
+     *
+     * @see AbstractThreadedJssAction
+     * @since 1.4
+     */
+    public static final int COMMAND_IN_PROGRESS = IJssAction.IN_PROGRESS;
+
+    /**
+     * Default return status code when a given action cannot be found.
+     */
     public static final int COMMAND_NOT_FOUND_STATUS = 0x0004;
 
+    /**
+     * Default return status code for an empty execution (no action provided).
+     */
     public static final int COMMAND_EMPTY_STATUS = 0x0008;
 
     public static final PublicationLevel DEFAULT_LEVEL = PublicationLevel.WARNING;
