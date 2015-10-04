@@ -9,6 +9,7 @@ import javax.swing.text.Document;
 import jswingshell.AbstractJssController;
 import jswingshell.AbstractJssModel;
 import jswingshell.JssSimpleModel;
+import jswingshell.action.AbstractThreadedJssAction;
 
 /**
  *
@@ -350,6 +351,13 @@ public class JssTextAreaController extends AbstractJssController {
 
     private void jShellTextAreaKeyPressed(java.awt.event.KeyEvent evt) {
         if (evt == null) {
+            return;
+        }
+        // Ctrl+K shall kill every thread of the current action running in this shell
+        if (getCurrentAction() instanceof AbstractThreadedJssAction && (evt.getKeyCode() == KeyEvent.VK_K && ((KeyEvent.CTRL_MASK | KeyEvent.CTRL_DOWN_MASK) & evt.getModifiers()) != 0)) {
+            AbstractThreadedJssAction currentAction = (AbstractThreadedJssAction) getCurrentAction();
+            currentAction.cancel(this, true);
+            this.removeEndedAction(currentAction);
             return;
         }
         if (isCommandLineLocked()) {

@@ -1,5 +1,7 @@
 package jswingshell;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,12 +37,14 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
 
     /**
      * Default return status code for a successful execution of an action.
+     *
      * @since 1.4
      */
     public static final int COMMAND_SUCCESS = IJssAction.SUCCESS;
 
     /**
      * Default return status code for a failed execution of an action.
+     *
      * @since 1.4
      */
     public static final int COMMAND_ERROR = IJssAction.ERROR;
@@ -74,11 +78,42 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      */
     public static final PublicationLevel DEFAULT_LEVEL = PublicationLevel.WARNING;
 
+    /**
+     * The shell's command line history.
+     */
     private CommandHistory commandHistory;
 
+    /**
+     * The shell's command line parser.
+     */
     private CommandLineParser commandLineParser;
 
+    /**
+     * The shell's publication level.
+     */
     private PublicationLevel level;
+
+    /**
+     * Last executed action which is still currently in progress.
+     *
+     * @since 1.4
+     */
+    private IJssAction currentAction;
+
+    /**
+     * The list of actions currently in progress.
+     *
+     * @since 1.4
+     */
+    private List<AbstractThreadedJssAction> actionsInProgress = new ArrayList<>();
+
+    /**
+     * The list of property change listeners for the action(s) currently in
+     * progress.
+     *
+     * @since 1.4
+     */
+    private List<PropertyChangeListener> actionsPropertyChangeListeners = new ArrayList<>();
 
     // #########################################################################
     // Constructors
@@ -426,6 +461,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
             // Search for the action
             IJssAction action = getActionForCommandIdentifier(args[0]);
             if (action != null) {
+                // Keep track of the last action
+                currentAction = action;
                 commandReturnStatus = action.run(this, args);
             } else {
                 publish(PublicationLevel.ERROR, "Command not found: " + args[0]);
@@ -442,26 +479,52 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
     @Override
     public int interpret() {
         lockCommandLine();
-        
+
         String cmd = extractCommand();
-        
+
         int commandReturnStatus = AbstractJssAction.SUCCESS;
         if (cmd != null && !cmd.isEmpty()) {
             commandReturnStatus = interpretCommand(cmd);
             addNewLineToShell();
             publish(PublicationLevel.DEBUG, "Return status: " + commandReturnStatus);
         }
-        
+
         switch (commandReturnStatus) {
             case AbstractThreadedJssAction.IN_PROGRESS:
                 // Do not add command line for actions still in progress
+                // But store the action for later thread management
+                if (currentAction instanceof AbstractThreadedJssAction) {
+                    AbstractThreadedJssAction threadedAction = (AbstractThreadedJssAction) currentAction;
+                    actionsInProgress.add(threadedAction);
+                    for (final AbstractThreadedJssAction.AbstractJssActionWorker worker : threadedAction.getActiveWorkers()) {
+                        if (worker.getShellController() == this) {
+                            // Add a listener to manage the workers changes
+                            worker.addPropertyChangeListener(new PropertyChangeListener() {
+
+                                @Override
+                                public void propertyChange(PropertyChangeEvent evt) {
+                                    if ("state".equals(evt.getPropertyName())
+                                            && AbstractThreadedJssAction.AbstractJssActionWorker.StateValue.DONE == evt.getNewValue()) {
+                                        // Remove action from the "in progress" list
+                                        AbstractJssController.this.removeEndedAction(worker.getParentAction());
+                                        AbstractJssController.this.addNewCommandLine();
+                                        AbstractJssController.this.unlockCommandLine();
+                                    }
+                                }
+
+                            });
+                        }
+                    }
+                }
                 break;
             default:
+                // Reset the current action reference if it has already ended
+                currentAction = null;
                 addNewCommandLine();
                 unlockCommandLine();
                 break;
         }
-        
+
         return commandReturnStatus;
     }
 
@@ -492,6 +555,51 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
     @Override
     public void setPublicationLevel(PublicationLevel level) {
         this.level = level;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public IJssAction getCurrentAction() {
+        return currentAction;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public List<AbstractThreadedJssAction> getActionsInProgress() {
+        return Collections.unmodifiableList(actionsInProgress);
+    }
+
+    /**
+     * Alert the shell of an action that was in progress.
+     *
+     * @param endedAction action to be removed from the list of actions
+     * currently in progress.
+     *
+     * @since 1.4
+     */
+    protected void removeEndedAction(IJssAction endedAction) {
+        if (endedAction == currentAction) {
+            currentAction = null;
+        }
+        if (endedAction instanceof AbstractThreadedJssAction) {
+            actionsInProgress.remove((AbstractThreadedJssAction) endedAction);
+        }
+    }
+
+    public synchronized void addPropertyChangeListener(PropertyChangeListener listener) {
+        actionsPropertyChangeListeners.add(listener);
+    }
+
+    public synchronized void removePropertyChangeListener(PropertyChangeListener listener) {
+        actionsPropertyChangeListeners.remove(listener);
+    }
+
+    public synchronized List<PropertyChangeListener> getPropertyChangeListeners() {
+        return Collections.unmodifiableList(actionsPropertyChangeListeners);
     }
 
     // #########################################################################
@@ -625,7 +733,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
          *
          * @throws IllegalArgumentException if {@code maximumSizeAllowed} is
          * negative.
-         * 
+         *
          * @since 1.2
          */
         public CommandHistory(CommandHistory that) {

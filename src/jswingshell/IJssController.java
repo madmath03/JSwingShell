@@ -1,5 +1,6 @@
 package jswingshell;
 
+import java.util.List;
 import java.util.Set;
 import jswingshell.action.IJssAction;
 
@@ -184,7 +185,7 @@ public interface IJssController {
      *
      * <p>
      * Those constants are used to identify the results criticity when adding a
-     * message through {@link #publish(jswingshell.IJssController.PublicationLevel, java.lang.String) 
+     * message through {@link #publish(jswingshell.IJssController.PublicationLevel, java.lang.String)
      * }.</p>
      */
     public static enum PublicationLevel {
@@ -265,6 +266,24 @@ public interface IJssController {
      * @param level the new shell's level for publications.
      */
     public void setPublicationLevel(PublicationLevel level);
+
+    /**
+     * The last executed action which is still currently in progress.
+     *
+     * @return the last executed action which is still currently in progress.
+     *
+     * @since 1.4
+     */
+    public IJssAction getCurrentAction();
+
+    /**
+     * The list of actions currently in progress.
+     *
+     * @return an unmodifiable list of the actions currently in progress.
+     *
+     * @since 1.4
+     */
+    public List<? extends IJssAction> getActionsInProgress();
 
     // TODO Add autocomplete methods
     // #########################################################################

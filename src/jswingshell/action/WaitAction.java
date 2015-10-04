@@ -19,7 +19,7 @@ public class WaitAction extends AbstractThreadedJssAction {
 
     /**
      * This action default identifier.
-     * 
+     *
      * @since 1.2
      */
     public static final String DEFAULT_IDENTIFIER = "wait";
@@ -124,7 +124,7 @@ public class WaitAction extends AbstractThreadedJssAction {
     }
 
     // #########################################################################
-    protected static class SleepWorker extends AbstractJssActionWorker {
+    protected class SleepWorker extends AbstractJssActionWorker {
 
         final long millis;
 
@@ -141,8 +141,8 @@ public class WaitAction extends AbstractThreadedJssAction {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException ex) {
-                this.publish(new JssActionWorkerChunk(IJssController.PublicationLevel.FATAL_ERROR, ex.getMessage()));
-                LOGGER.log(Level.SEVERE, null, ex);
+                this.publish(WaitAction.this.new JssActionWorkerChunk(IJssController.PublicationLevel.WARNING, ex.getMessage()));
+                LOGGER.log(Level.WARNING, "Wait action interrupted.", ex);
                 workerCommandReturnStatus = AbstractThreadedJssAction.ERROR;
             }
 
