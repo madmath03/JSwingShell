@@ -25,19 +25,19 @@ public class HelpAction extends AbstractJssAction {
 
     private static final String COMMAND_BRIEF_HELP = "Display available commands.";
 
-    private String commandHelp;
+    private static String commandHelp;
+
+    private static boolean commandHelpInitialized = false;
 
     /**
      * Construct the action's command help.
      *
-     * @param shellController the shell controller for which we will construct
-     * the help
      * @param action the action reference
      *
      * @return the action's command help.
      */
-    public static final String getHelp(IJssController shellController, HelpAction action) {
-        if (action != null) {
+    public static final String getHelp(HelpAction action) {
+        if (!commandHelpInitialized && action != null) {
             StringBuilder stringBuilder = new StringBuilder();
 
             String commandIdsAsString = action.getCommandIdentifiersAsString();
@@ -46,11 +46,21 @@ public class HelpAction extends AbstractJssAction {
             stringBuilder.append("\n").append("For more information on a command, enter ").append(commandIdsAsString).append(" followed by the command:");
             stringBuilder.append("\n\t").append(commandIdsAsString).append(" [command] ");
 
-            action.commandHelp = stringBuilder.toString();
-            return action.commandHelp;
+            commandHelp = stringBuilder.toString();
+            return commandHelp;
         } else {
             return null;
         }
+    }
+    
+    /**
+     * Reset the static help to force reconstruction on next call.
+     * 
+     * @since 1.4
+     */
+    public static final void resetHelp() {
+        commandHelpInitialized = false;
+        commandHelp = null;
     }
 
     // #########################################################################
@@ -87,12 +97,12 @@ public class HelpAction extends AbstractJssAction {
 
     @Override
     public String getHelp() {
-        return getHelp(getDefaultShellController(), this);
+        return getHelp(this);
     }
 
     @Override
     public String getHelp(IJssController shellController) {
-        return getHelp(shellController, this);
+        return getHelp(this);
     }
 
     @Override

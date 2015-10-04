@@ -46,6 +46,16 @@ public class ClearAction extends AbstractJssAction {
         }
         return commandHelp;
     }
+    
+    /**
+     * Reset the static help to force reconstruction on next call.
+     * 
+     * @since 1.4
+     */
+    public static final void resetHelp() {
+        commandHelpInitialized = false;
+        commandHelp = null;
+    }
 
     // #########################################################################
     public ClearAction(String name, Icon icon, IJssController shellController, String[] args) {
