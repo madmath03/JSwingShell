@@ -262,7 +262,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
         stringBuilder.append(this.getBriefHelp());
         stringBuilder.append("\n\t").append(commandIdsAsString);
         stringBuilder.append("\n");
-        stringBuilder.append("\n").append("You can set the mode as follow:");
+        stringBuilder.append("\n").append("You can set the value as follow:");
         Map<T, Collection<String>> argumentsByValue = getSwitchArgumentsByValue();
         if (argumentsByValue != null) {
             for (Map.Entry<T, Collection<String>> entry : argumentsByValue.entrySet()) {
