@@ -51,6 +51,13 @@ public class JssTextAreaController extends AbstractJssController {
      * The new line separator.
      */
     protected static final String NEW_LINE = EOL2;
+    
+    /**
+     * The default shell font.
+     *
+     * @since 1.4
+     */
+    protected static final Font DEFAULT_FONT = new Font("LucidaSans", Font.BOLD, 11);
 
     private final JssTextArea view;
 
@@ -148,7 +155,7 @@ public class JssTextAreaController extends AbstractJssController {
         setBackground(Color.black);
         setForeground(Color.white);
         setTabSize(2);
-        setFont(new java.awt.Font("LucidaSans", Font.BOLD, 11));
+        setFont(DEFAULT_FONT);
 
         addNewCommandLine();
         unlockShellTextArea();
