@@ -147,7 +147,7 @@ public class WaitAction extends AbstractThreadedJssAction {
         protected Integer doInBackground() throws Exception {
             int workerCommandReturnStatus = AbstractThreadedJssAction.SUCCESS;
 
-            shellController.lockCommandLine();
+            getShellController().lockCommandLine();
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException ex) {

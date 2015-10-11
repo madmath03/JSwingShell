@@ -166,6 +166,7 @@ public class LoadCommandFile extends AbstractThreadedJssAction {
                     lineCount++;
                     String command = line != null ? line.trim() : "";
 
+                    IJssController shell = getShellController();
                     if (command != null && !command.isEmpty()) {
                         // Add line to shell
                         if (command.startsWith(MUTE_PREFIX)) {
@@ -173,14 +174,14 @@ public class LoadCommandFile extends AbstractThreadedJssAction {
                         } else if (command.startsWith(COMMENT_PREFIX)) {
                             continue;
                         } else {
-                            shellController.addNewLineToShell(command);
+                            shell.addNewLineToShell(command);
                         }
 
-                        if (shellController instanceof AbstractJssController) {
+                        if (shell instanceof AbstractJssController) {
                             // Execute command without adding it to history
-                            workerCommandReturnStatus |= ((AbstractJssController) shellController).interpretCommand(command, false);
+                            workerCommandReturnStatus |= ((AbstractJssController) shell).interpretCommand(command, false);
                         } else {
-                            workerCommandReturnStatus |= shellController.interpretCommand(command);
+                            workerCommandReturnStatus |= shell.interpretCommand(command);
                         }
                     }
 
