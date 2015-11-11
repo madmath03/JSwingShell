@@ -32,7 +32,7 @@ import jswingshell.IJssController;
  *
  * @since 1.2
  */
-public abstract class AbstractJssComboAction<T> extends AbstractJssAction implements ComboBoxModel {
+public abstract class AbstractJssComboAction<T> extends AbstractJssAction implements ComboBoxModel<T> {
 
     protected Map<T, Collection<String>> switchArgumentsByValue;
     protected Map<String, T> switchValuesByArgument;
@@ -150,14 +150,13 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
         return dataModel;
     }
 
-  /**
-   * Set the selected item. The implementation of this  method should notify
-   * all registered {@code ListDataListener}s that the contents
-   * have changed.
-   *
-   * @param anItem the list object to select or {@code null}
-   *        to clear the selection
-   */
+    /**
+     * Set the selected item. The implementation of this method should notify
+     * all registered {@code ListDataListener}s that the contents have changed.
+     *
+     * @param anItem the list object to select or {@code null} to clear the
+     * selection
+     */
     @Override
     public void setSelectedItem(Object anItem) {
         dataModel.setSelectedItem(anItem);
@@ -224,7 +223,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
         Object oldValue = getValue(key);
         if (oldValue == null || !oldValue.equals(newValue)) {
             super.putValue(key, newValue);
-            // If this action has a default argument that corresponds to a value
+            // If this action has a default argument that corresponds to value
             if (SELECTED_KEY.equals(key) && getDefaultArguments() != null && getDefaultArguments().length > 1) {
                 String name = getDefaultArguments()[1];
                 Map<String, T> argumentsByValue = getSwitchValuesByArgument();
@@ -424,22 +423,22 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
     /**
      * The internal {@link ComboElementAction}s referencing combo items.
-     * 
+     *
      * <p>
-     * Each {@code ComboElementAction} is a switch action which shall trigger 
-     * one of this combo action value. The consistency between the switch 
-     * actions and the combo selected item is managed through the an 
+     * Each {@code ComboElementAction} is a switch action which shall trigger
+     * one of this combo action value. The consistency between the switch
+     * actions and the combo selected item is managed through the an
      * {@link ActionGroup}.</p>
-     * 
+     *
      * <p>
-     * If you need to update the model for this combo action, make sure to 
-     * reset the inner elements actions.</p>
+     * If you need to update the model for this combo action, make sure to reset
+     * the inner elements actions.</p>
      *
      * @return internal collection of {@link ComboElementAction}s referencing
      * combo items.
      *
      * @see ComboElementAction
-     * @see #resetInnerElementActions() 
+     * @see #resetInnerElementActions()
      * @since 1.3
      */
     public final Collection<ComboElementAction<T>> getInnerElementActions() {
