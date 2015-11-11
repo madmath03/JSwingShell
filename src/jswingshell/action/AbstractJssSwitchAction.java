@@ -55,7 +55,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
      * <p>
      * It is highly recommended when extending {@code AbstractJssSwitchAction}
      * to cache the command help constructe with this method and
-     * <strong>not</strong> construct it on each call.
+     * <strong>not</strong> construct it on each call to 
+     * {@link #getHelp(jswingshell.IJssController) }.
      * </p>
      *
      * @param action the action reference
@@ -136,6 +137,12 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
     /**
      * Get an extensive text describing the use of this shell command in regards
      * to a given shell.
+     *
+     * <p>
+     * It is highly recommended when extending {@code AbstractJssSwitchAction}
+     * to cache the command help generated in order to
+     * <strong>not</strong> construct it again on each call.
+     * </p>
      *
      * @param shellController The shell controller for which we should retrieve
      * the action's help. This is useful for contextual actions.
