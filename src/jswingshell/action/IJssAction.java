@@ -45,9 +45,14 @@ public interface IJssAction extends Action, Comparable<IJssAction> {
      * <p>
      * If this command has no identifiers, returns {@code null}.</p>
      *
+     * <p>
+     * The default identifier is usually the first of the command identifiers.</p>
+     *
      * @return the default identifier for this shell command, {@code null} if
      * none
-     * 
+     *
+     * @see #getCommandIdentifiers()
+     *
      * @since 1.2
      */
     public String getDefaultCommandIdentifier();
