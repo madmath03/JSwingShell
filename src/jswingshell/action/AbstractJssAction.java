@@ -186,7 +186,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
         }
         return null;
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -256,7 +256,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
                     commandBuilder.append(commandIdentifiers[0]);
                 }
             }
-            
+
             defaultShellController.setCommandLine(commandBuilder.toString());
             defaultShellController.interpret();
         } else {
@@ -269,6 +269,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      * {@code ActionEvent}.
      *
      * @param e an {@code ActionEvent}.
+     *
      * @return an array of arguments to pass to the command, or {@code null} if
      * no arguments were extracted.
      */
