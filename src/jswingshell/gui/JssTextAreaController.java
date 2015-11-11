@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.text.Document;
 import jswingshell.AbstractJssController;
 import jswingshell.AbstractJssModel;
+import jswingshell.IJssView;
 import jswingshell.JssSimpleModel;
 import jswingshell.action.AbstractThreadedJssAction;
 
@@ -59,9 +60,9 @@ public class JssTextAreaController extends AbstractJssController {
      */
     protected static final Font DEFAULT_FONT = new Font("LucidaSans", Font.BOLD, 11);
 
-    private final JssTextArea view;
+    private JssTextArea view;
 
-    private final JssSimpleModel model;
+    private JssSimpleModel model;
 
     private transient int shellLineStart = -1;
 
@@ -76,9 +77,9 @@ public class JssTextAreaController extends AbstractJssController {
         initView();
     }
 
-    public JssTextAreaController(JssTextArea view) {
+    public JssTextAreaController(JssTextArea anotherView) {
         super();
-        this.view = view;
+        this.view = anotherView;
         this.model = new JssSimpleModel(this);
         initView();
     }
@@ -115,6 +116,34 @@ public class JssTextAreaController extends AbstractJssController {
         super();
         this.view = new JssTextArea(this, doc, text, rows, columns);
         this.model = new JssSimpleModel(this);
+        initView();
+    }
+
+    public JssTextAreaController(JssSimpleModel anotherModel) {
+        super();
+        this.view = new JssTextArea(this);
+        this.model = anotherModel;
+        initView();
+    }
+
+    public JssTextAreaController(JssSimpleModel anotherModel, String text) {
+        super();
+        this.view = new JssTextArea(this, text);
+        this.model = anotherModel;
+        initView();
+    }
+
+    public JssTextAreaController(JssSimpleModel anotherModel, Document doc) {
+        super();
+        this.view = new JssTextArea(this, doc);
+        this.model = anotherModel;
+        initView();
+    }
+
+    public JssTextAreaController(JssTextArea anotherView, JssSimpleModel anotherModel) {
+        super();
+        this.view = anotherView;
+        this.model = anotherModel;
         initView();
     }
 
@@ -165,10 +194,36 @@ public class JssTextAreaController extends AbstractJssController {
         // Ensure the view is linked to this shell controller
         getView().setController(this);
     }
+    
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    protected void setView(IJssView anotherView) {
+        if (!(anotherView instanceof JssTextArea)) {
+            throw new IllegalArgumentException("Not an instance of JssTextArea!");
+        }
+        if (getView() != null) {
+            getView().setController(null);
+        }
+        this.view = (JssTextArea) anotherView;
+        initView();
+    }
 
     @Override
     public AbstractJssModel getModel() {
         return model;
+    }
+    
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    protected void setModel(AbstractJssModel anotherModel) {
+        if (!(anotherModel instanceof JssSimpleModel)) {
+            throw new IllegalArgumentException("Not an instance of JssSimpleModel!");
+        }
+        this.model = (JssSimpleModel) anotherModel;
     }
 
     // #########################################################################

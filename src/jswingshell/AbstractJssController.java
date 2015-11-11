@@ -124,10 +124,23 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
         this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED, CommandHistory.DEFAULT_DUPLICATION_ALLOWED, CommandHistory.DEFAULT_SIZE_UNLIMITED, DEFAULT_LEVEL);
     }
 
+    /**
+     * Create a shell controller with a publication level.
+     *
+     * @param level the shell's publication level.
+     */
     public AbstractJssController(PublicationLevel level) {
         this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED, CommandHistory.DEFAULT_DUPLICATION_ALLOWED, CommandHistory.DEFAULT_SIZE_UNLIMITED, level);
     }
 
+    /**
+     * Create a shell controller with a publication level.
+     *
+     * @param levelName the publication level name.
+     *
+     * @throws IllegalArgumentException if there is no publication level with
+     * the specified name
+     */
     public AbstractJssController(String levelName) {
         this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED, CommandHistory.DEFAULT_DUPLICATION_ALLOWED, CommandHistory.DEFAULT_SIZE_UNLIMITED, PublicationLevel.valueOf(levelName));
     }
@@ -141,10 +154,28 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
         this(commandHistoryCapacity, CommandHistory.DEFAULT_DUPLICATION_ALLOWED, CommandHistory.DEFAULT_SIZE_UNLIMITED, DEFAULT_LEVEL);
     }
 
+    /**
+     * Create a shell controller with a command history initial capacity,
+     * setting if duplication mode, and if a limit size must be applied.
+     *
+     * @param commandHistoryCapacity Initial command history size.
+     * @param duplicationAllowed Is duplication allowed in the command history?
+     * @param sizeUnlimited Is the command history's size unlimited?
+     */
     public AbstractJssController(int commandHistoryCapacity, boolean duplicationAllowed, boolean sizeUnlimited) {
         this(commandHistoryCapacity, duplicationAllowed, duplicationAllowed, DEFAULT_LEVEL);
     }
 
+    /**
+     * Create a shell controller with a publication level and with a command
+     * history initial capacity, setting if duplication mode, and if a limit
+     * size must be applied.
+     *
+     * @param commandHistoryCapacity Initial command history size.
+     * @param duplicationAllowed Is duplication allowed in the command history?
+     * @param sizeUnlimited Is the command history's size unlimited?
+     * @param level the shell's publication level.
+     */
     public AbstractJssController(int commandHistoryCapacity, boolean duplicationAllowed, boolean sizeUnlimited, PublicationLevel level) {
         this.commandHistory = new CommandHistory(commandHistoryCapacity, duplicationAllowed, sizeUnlimited);
         this.commandLineParser = new CommandLineParser();
@@ -160,10 +191,28 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
     public abstract IJssView getView();
 
     /**
+     * Set the shell view.
+     *
+     * @param anotherView the new shell view.
+     *
+     * @since 1.4
+     */
+    protected abstract void setView(IJssView anotherView);
+
+    /**
      * {@inheritDoc }
      */
     @Override
     public abstract AbstractJssModel getModel();
+
+    /**
+     * Set the shell model.
+     *
+     * @param anotherModel the new shell model.
+     *
+     * @since 1.4
+     */
+    protected abstract void setModel(AbstractJssModel anotherModel);
 
     // #########################################################################
     // Command history methods
@@ -450,7 +499,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
         String[] args = extractCommandParameters(command);
 
         if (args == null || args.length == 0) {
-            publish(PublicationLevel.ERROR, "Empty command");
+            publish(PublicationLevel.ERROR, "No command and/or arguments found: " + command);
             commandReturnStatus = COMMAND_EMPTY_STATUS;
         } else {
             // Store the command in history and reset position
@@ -534,7 +583,9 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
     @Override
     public synchronized boolean publish(PublicationLevel level, String message) {
         boolean added = false;
+        // If the message has a level greater or equal to the shell's
         if (level != null && level.compareTo(getPublicationLevel()) <= 0) {
+            // Add a new line to the shell
             addNewLineToShell(message);
             added = true;
         }

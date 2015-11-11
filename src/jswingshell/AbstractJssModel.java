@@ -18,7 +18,7 @@ import jswingshell.action.IJssAction;
  */
 public abstract class AbstractJssModel implements IJssModel {
 
-    private final IJssController controller;
+    private IJssController controller;
 
     private final Set<IJssAction> availableActions;
 
@@ -119,6 +119,17 @@ public abstract class AbstractJssModel implements IJssModel {
     @Override
     public IJssController getController() {
         return controller;
+    }
+
+    /**
+     * Set the shell controller.
+     * 
+     * @param anotherController the new shell controller.
+     * 
+     * @since 1.4
+     */
+    protected void setController(IJssController anotherController) {
+        this.controller = anotherController;
     }
 
     // #########################################################################
