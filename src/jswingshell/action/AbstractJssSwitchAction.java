@@ -48,6 +48,37 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
         OFF_ARGUMENTS = Collections.unmodifiableSet(offArguments);
     }
 
+    /**
+     * Get an extensive text describing the use of a shell command in regards to
+     * a given shell.
+     *
+     * <p>
+     * It is highly recommended when extending {@code AbstractJssSwitchAction}
+     * to cache the command help constructe with this method and
+     * <strong>not</strong> construct it on each call.
+     * </p>
+     *
+     * @param action the action reference
+     *
+     * @param shellController The shell controller for which we should retrieve
+     * the action's help. This is useful for contextual actions.
+     *
+     * @return a string describing the use of this shell command.
+     */
+    protected static String getHelp(AbstractJssSwitchAction action, IJssController shellController) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        String commandIdsAsString = action.getCommandIdentifiersAsString();
+        stringBuilder.append(action.getBriefHelp()).append("\n");
+        stringBuilder.append("\t").append(commandIdsAsString).append("\n");
+        stringBuilder.append("\n");
+        stringBuilder.append("You can switch mode as follow:").append("\n");
+        stringBuilder.append("\t").append(commandIdsAsString).append(" ").append(action.getOnArgumentsAsString()).append("\n");
+        stringBuilder.append("\t").append(commandIdsAsString).append(" ").append(action.getOffArgumentsAsString());
+
+        return stringBuilder.toString();
+    }
+
     // #########################################################################
     /**
      * The action group that the action belongs to.
@@ -107,23 +138,13 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
      * to a given shell.
      *
      * @param shellController The shell controller for which we should retrieve
-     * the action's help. This is useful for
+     * the action's help. This is useful for contextual actions.
      *
      * @return a string describing the use of this shell command.
      */
     @Override
     public String getHelp(IJssController shellController) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        String commandIdsAsString = this.getCommandIdentifiersAsString();
-        stringBuilder.append(this.getBriefHelp());
-        stringBuilder.append("\n\t").append(commandIdsAsString);
-        stringBuilder.append("\n");
-        stringBuilder.append("\n").append("You can set switch as follow:");
-        stringBuilder.append("\n\t").append(commandIdsAsString).append(" ").append(getOnArgumentsAsString());
-        stringBuilder.append("\n\t").append(commandIdsAsString).append(" ").append(getOffArgumentsAsString());
-
-        return stringBuilder.toString();
+        return getHelp(this, shellController);
     }
 
     @Override
