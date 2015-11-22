@@ -1,5 +1,6 @@
 package jswingshell.action;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,7 +23,7 @@ import java.util.Collections;
  * @since 1.3
  * @see AbstractJssSwitchAction
  */
-public class ActionGroup {
+public class ActionGroup implements Serializable {
 
     /**
      * The list of actions participating in this group.
