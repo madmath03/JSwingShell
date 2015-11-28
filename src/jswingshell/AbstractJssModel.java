@@ -1,5 +1,6 @@
 package jswingshell;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,18 +17,59 @@ import jswingshell.action.IJssAction;
  *
  * @author Mathieu Brunot
  */
-public abstract class AbstractJssModel implements IJssModel {
+public abstract class AbstractJssModel implements IJssModel, Serializable {
 
-    private IJssController controller;
+    /**
+     * The reference to the shell controller.
+     */
+    private transient IJssController controller;
 
+    /**
+     * All available actions in the model.
+     */
     private final Set<IJssAction> availableActions;
 
-    private boolean actionsByCommandIdentifierInitialized = false;
+    /**
+     * Has the map of actions by their command identifier been initialized?
+     */
+    private transient boolean actionsByCommandIdentifierInitialized = false;
 
-    private final Map<String, IJssAction> actionsByCommandIdentifier;
+    /**
+     * Map of actions by their command identifier.
+     *
+     * <p>
+     * This internal {@code Map} is used to ease the look up of a command for a
+     * given identifier. If a command has several identifiers, each identifier
+     * will have its own entry in the {@code Map}.</p>
+     */
+    private transient Map<String, IJssAction> actionsByCommandIdentifier;
 
     // #########################################################################
     // Constructors
+    /**
+     * Contruct a shell model with no controller.
+     *
+     * @see #setController(jswingshell.IJssController)
+     *
+     * @since 1.4
+     */
+    protected AbstractJssModel() {
+        this((IJssController) null);
+    }
+
+    /**
+     * Contruct a shell model, with no controller, and the available commands.
+     *
+     * @param actions the available commands.
+     *
+     * @see #setController(jswingshell.IJssController)
+     *
+     * @since 1.4
+     */
+    protected AbstractJssModel(Collection<IJssAction> actions) {
+        this(null, actions);
+    }
+
     /**
      * Contruct a shell model and initializes the controller.
      *
@@ -123,9 +165,9 @@ public abstract class AbstractJssModel implements IJssModel {
 
     /**
      * Set the shell controller.
-     * 
+     *
      * @param anotherController the new shell controller.
-     * 
+     *
      * @since 1.4
      */
     protected void setController(IJssController anotherController) {
@@ -241,7 +283,15 @@ public abstract class AbstractJssModel implements IJssModel {
     }
 
     private void initActionsByCommandIdentifier() {
-        actionsByCommandIdentifier.clear();
+        if (actionsByCommandIdentifier == null) {
+            if (availableActions != null) {
+                actionsByCommandIdentifier = new HashMap<>(availableActions.size());
+            } else {
+                actionsByCommandIdentifier = new HashMap<>();
+            }
+        } else {
+            actionsByCommandIdentifier.clear();
+        }
 
         Set<IJssAction> actions = getAvailableActions();
         if (actions != null) {

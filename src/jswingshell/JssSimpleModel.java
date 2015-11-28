@@ -11,6 +11,31 @@ import jswingshell.action.IJssAction;
 public class JssSimpleModel extends AbstractJssModel {
 
     /**
+     * Contruct a shell model with no controller.
+     * 
+     * @see #setController(jswingshell.IJssController) 
+     * @see AbstractJssModel#AbstractJssModel()
+     * 
+     * @since 1.4
+     */
+    protected JssSimpleModel() {
+        super();
+    }
+
+    /**
+     * Contruct a shell model, with no controller, and the available commands.
+     *
+     * @param actions the available commands.
+     *
+     * @see #setController(jswingshell.IJssController)
+     *
+     * @since 1.4
+     */
+    protected JssSimpleModel(Collection<IJssAction> actions) {
+        super(actions);
+    }
+
+    /**
      * Contruct a shell model and initializes the controller.
      *
      * @param controller the shell controller to attach to this shell model.
