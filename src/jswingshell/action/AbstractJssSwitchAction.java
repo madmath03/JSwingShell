@@ -88,6 +88,7 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
      */
     protected ActionGroup group = null;
 
+    // #########################################################################
     public AbstractJssSwitchAction() {
         super();
     }
@@ -223,7 +224,7 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
                 }
             }
         } else {
-            // If some dummy removed the event, retrieve the state of the action itself (should already be updated by Swing)
+            // If no event, retrieve the state of the action itself (should already be updated by Swing)
             Boolean isActionSelected = isSelected();
             if (isActionSelected != null) {
                 String commandIdentifier = getDefaultCommandIdentifier();
