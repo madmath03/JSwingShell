@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -34,8 +35,8 @@ import jswingshell.IJssController;
  */
 public abstract class AbstractJssComboAction<T> extends AbstractJssAction implements ComboBoxModel<T> {
 
-    protected Map<T, Collection<String>> switchArgumentsByValue;
-    protected Map<String, T> switchValuesByArgument;
+    protected transient Map<T, Collection<String>> switchArgumentsByValue = null;
+    protected transient Map<String, T> switchValuesByArgument = null;
 
     /**
      * This protected field is implementation specific. Do not access directly
@@ -51,13 +52,13 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
      *
      * @since 1.3
      */
-    private ActionGroup innerGroup = null;
+    private transient ActionGroup innerGroup = null;
     /**
      * The internal {@link ComboElementAction} referencing combo items.
      *
      * @since 1.3
      */
-    private Collection<ComboElementAction<T>> innerElementActions;
+    private transient Collection<ComboElementAction<T>> innerElementActions = null;
 
     // #########################################################################
     public AbstractJssComboAction() {
@@ -70,7 +71,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
     public AbstractJssComboAction(ComboBoxModel<T> aModel) {
         super();
-        this.setModel(aModel);
+        this.dataModel = aModel;
     }
 
     public AbstractJssComboAction(IJssController shellController) {
@@ -83,7 +84,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
     public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController) {
         super(shellController);
-        this.setModel(aModel);
+        this.dataModel = aModel;
     }
 
     public AbstractJssComboAction(IJssController shellController, String[] args) {
@@ -96,7 +97,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
     public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController, String[] args) {
         super(shellController, args);
-        this.setModel(aModel);
+        this.dataModel = aModel;
     }
 
     public AbstractJssComboAction(String name, IJssController shellController, String[] args) {
@@ -109,7 +110,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
     public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, IJssController shellController, String[] args) {
         super(name, shellController, args);
-        this.setModel(aModel);
+        this.dataModel = aModel;
     }
 
     public AbstractJssComboAction(String name, Icon icon, IJssController shellController, String[] args) {
@@ -122,7 +123,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
     public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, Icon icon, IJssController shellController, String[] args) {
         super(name, icon, shellController, args);
-        this.setModel(aModel);
+        this.dataModel = aModel;
     }
 
     // #########################################################################
@@ -170,7 +171,9 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
         // If this action has a inner group and element actions
         if (innerGroup != null) {
             for (ComboElementAction<T> elementAction : innerElementActions) {
-                if ((anItem == null && anItem == elementAction.dataItem) || (anItem != null && anItem.equals(elementAction.dataItem))) {
+                T elementActionItem = elementAction.getDataItem();
+                if ((anItem == null && anItem == elementActionItem)
+                        || (anItem != null && anItem.equals(elementActionItem))) {
                     innerGroup.setSelected(elementAction, true);
                 }
             }
@@ -233,13 +236,24 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
                     // If this action has a inner group and element actions
                     if (innerGroup != null) {
                         for (ComboElementAction<T> elementAction : innerElementActions) {
-                            if ((item == null && item == elementAction.dataItem) || (item != null && item.equals(elementAction.dataItem))) {
+                            T elementActionItem = elementAction.getDataItem();
+                            if ((item == null && item == elementActionItem)
+                                    || (item != null && item.equals(elementActionItem))) {
                                 innerGroup.setSelected(elementAction, true);
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void setEnabled(boolean newValue) {
+        super.setEnabled(newValue);
+        // Enable the internal actions with their parent action
+        if (hasInnerElementActions() && getInnerGroup() != null) {
+            this.getInnerGroup().setEnabled(newValue);
         }
     }
 
@@ -303,14 +317,22 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
                 }
                 eventArgs = new String[]{commandIdentifier, selectedItem != null ? selectedItem.toString() : null};
             }
+        } else {
+            // If no event, retrieve the state of the action itself (should already be updated by Swing)
+            T selectedItem = (T) getSelectedItem();
+            Map<T, Collection<String>> valuesByArgument = getSwitchArgumentsByValue();
+            if (selectedItem != null && valuesByArgument != null
+                    && valuesByArgument.containsKey(selectedItem)) {
+                String commandIdentifier = getDefaultCommandIdentifier();
+                eventArgs = new String[]{commandIdentifier, valuesByArgument.get(selectedItem).iterator().next()};
+            }
         }
 
         return eventArgs;
     }
 
     @Override
-    public int run(IJssController shellController, String[] args
-    ) {
+    public int run(IJssController shellController, String[] args) {
         int commandReturnStatus = AbstractJssAction.SUCCESS;
 
         T switchValue = null;
@@ -320,6 +342,18 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
                 String switchArgument = args[1].trim().toUpperCase();
 
                 switchValue = argumentsByValue.get(switchArgument);
+                /* 
+                 * XXX What to do...
+                 * Here, we are handling the invalid argument received by 
+                 * publishing an error message (which is hard coded by the way).
+                 * Even if it seem coherent with a "command line only" usage of
+                 * the shell, it prevents any kind of interaction with the user,
+                 * thus not allowing him to fix his error... 
+                 * A solution would be to throw an exception but that would mean
+                 * a considerable rework of how actions are run and I cannot
+                 * estimate (yet) the side effects this might generate.
+                 * Food for thought...
+                 */
                 if (switchValue == null && !argumentsByValue.containsKey(switchArgument)) {
                     shellController.publish(IJssController.PublicationLevel.WARNING, "\"" + switchArgument + "\" is not a valid value.");
                 }
@@ -332,8 +366,10 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
         // Do switch
         if (!doSwitch(shellController, switchValue)) {
+            // If switch did not work, return an error code
             commandReturnStatus = AbstractJssAction.ERROR;
-        } else {
+        } else if (!Objects.equals(switchValue, this.getSelectedItem())) {
+            // If switch worked but selection has not been updated
             this.setSelectedItem(switchValue);
         }
 
@@ -347,7 +383,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
         return switchValuesByArgument;
     }
 
-    private Map<String, T> constructValuesByArgument(Map<T, Collection<String>> argumentsByValue) {
+    private static <T> Map<String, T> constructValuesByArgument(Map<T, Collection<String>> argumentsByValue) {
         Map<String, T> valuesByArgument = new HashMap<>();
 
         if (argumentsByValue != null) {
@@ -422,44 +458,100 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
     }
 
     /**
+     * Set the inner action group that the internal {@link ComboElementAction}
+     * belongs to.
+     *
+     * @param innerGroup the new inner action group that the internal
+     * {@link ComboElementAction} belongs to.
+     *
+     * @see #getInnerGroup()
+     * @see #getInnerElementActions()
+     * @see #initInnerElements()
+     *
+     * @since 1.3
+     */
+    protected final void setInnerGroup(ActionGroup innerGroup) {
+        this.innerGroup = innerGroup;
+    }
+
+    /**
      * The internal {@link ComboElementAction}s referencing combo items.
      *
      * <p>
      * Each {@code ComboElementAction} is a switch action which shall trigger
      * one of this combo action value. The consistency between the switch
-     * actions and the combo selected item is managed through the an
+     * actions and the combo selected item is managed through an
      * {@link ActionGroup}.</p>
      *
      * <p>
+     * Calling this method will initialize the internal combo element actions.
+     * If you need to check if the action currently has defined those internal
+     * actions, use {@link #hasInnerElementActions() }.</p>
+     *
+     * <p>
      * If you need to update the model for this combo action, make sure to reset
-     * the inner elements actions.</p>
+     * the inner elements actions ({@link #resetInnerElements() }) to reflect
+     * the changes on the model.</p>
      *
      * @return internal collection of {@link ComboElementAction}s referencing
      * combo items.
      *
      * @see ComboElementAction
-     * @see #resetInnerElementActions()
+     * @see #resetInnerElements()
      * @since 1.3
      */
     public final Collection<ComboElementAction<T>> getInnerElementActions() {
         if (innerElementActions == null) {
-            innerGroup = new ActionGroup();
-            innerElementActions = new ArrayList<>(dataModel.getSize());
-            for (int i = 0, n = dataModel.getSize(); i < n; i++) {
-                ComboElementAction<T> elementAction = this.new ComboElementAction<>(this, dataModel.getElementAt(i));
-                innerElementActions.add(elementAction);
-                innerGroup.add(elementAction);
-            }
+            innerElementActions = initInnerElements();
         }
         return innerElementActions;
     }
 
     /**
-     * Reset the combo elements switch action and group.
+     * Does this action has any switch actions?
      *
+     * @return {@code true} if the action has any inner switch actions,
+     * {@code false} otherwise.
+     *
+     * @since 1.4
+     */
+    public final boolean hasInnerElementActions() {
+        return innerElementActions != null ? !innerElementActions.isEmpty() : false;
+    }
+
+    /**
+     * Initialize internal {@link ComboElementAction}s referencing combo items
+     * and the associated internal {@link ActionGroup}.
+     *
+     * @return the internal {@link ComboElementAction}s referencing combo items.
+     *
+     * @see #getInnerGroup()
+     * @see #getInnerElementActions()
+     * @see #resetInnerElements()
+     * @since 1.4
+     */
+    protected Collection<ComboElementAction<T>> initInnerElements() {
+        innerGroup = new ActionGroup();
+        innerElementActions = new ArrayList<>(dataModel.getSize());
+
+        for (int i = 0, n = dataModel.getSize(); i < n; i++) {
+            ComboElementAction<T> elementAction = this.new ComboElementAction<>(this, dataModel.getElementAt(i));
+            elementAction.setEnabled(this.isEnabled());
+            innerElementActions.add(elementAction);
+            innerGroup.add(elementAction);
+        }
+
+        return innerElementActions;
+    }
+
+    /**
+     * Reset the internal {@link ComboElementAction}s and internal
+     * {@link ActionGroup}.
+     *
+     * @see #initInnerElements()
      * @since 1.3
      */
-    public final void resetInnerElementActions() {
+    public void resetInnerElements() {
         if (innerElementActions != null) {
             for (ComboElementAction<T> elementAction : innerElementActions) {
                 elementAction.setSelected(false);
@@ -500,14 +592,23 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
 
         private final String[] identifiers;
 
-        private final String commandBriefHelp;
+        private transient String commandBriefHelp;
 
         private final AbstractJssComboAction<T> parentAction;
 
         private final T dataItem;
 
-        private ComboElementAction(AbstractJssComboAction<T> parentAction, T dataItem) {
-            super(parentAction.getSelectedItem() == dataItem, dataItem.toString(), parentAction.getDefaultShellController(), new String[]{parentAction.getDefaultCommandIdentifier(), dataItem.toString()});
+        /**
+         * Construct a {@code ComboElementAction} from a parent
+         * {@link AbstractJssComboAction} and one of its associated model's
+         * data.
+         *
+         * @param parentAction the parent {@link AbstractJssComboAction}
+         * @param dataItem the parent action model's data to associate to this
+         * {@code ComboElementAction}
+         */
+        protected ComboElementAction(AbstractJssComboAction<T> parentAction, T dataItem) {
+            super(dataItem.equals(parentAction.getSelectedItem()), dataItem.toString(), parentAction.getDefaultShellController(), new String[]{parentAction.getDefaultCommandIdentifier(), dataItem.toString()});
 
             this.parentAction = parentAction;
             this.dataItem = dataItem;
@@ -521,18 +622,40 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
             }
             this.identifiers = elementIdentifiers;
 
-            // Initialize the element brief help from the parent action and item
-            this.commandBriefHelp = "Set " + parentAction.getDefaultCommandIdentifier() + " to " + dataItem.toString();
             this.setGroup(this.parentAction.getInnerGroup());
         }
 
+        /**
+         * Get the parent action.
+         *
+         * @return the parent {@link AbstractJssComboAction}.
+         *
+         * @since 1.4
+         */
+        public final AbstractJssComboAction<T> getParentAction() {
+            return parentAction;
+        }
+
+        /**
+         * The data item associated to this {@link ComboElementAction}.
+         *
+         * @return the data item associated to this {@link ComboElementAction}.
+         *
+         * @since 1.4
+         */
+        public final T getDataItem() {
+            return dataItem;
+        }
+
+        // #########################################################################
         @Override
         protected boolean doSwitch(IJssController shellController, Boolean switchValue) {
             boolean switchDone = false;
 
             if (switchValue) {
                 switchDone = parentAction.doSwitch(dataItem);
-                if (switchDone) {
+                if (switchDone
+                        && !Objects.equals(switchValue, parentAction.getSelectedItem())) {
                     parentAction.setSelectedItem(dataItem);
                 }
             }
@@ -541,13 +664,49 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
         }
 
         @Override
-        public String[] getCommandIdentifiers() {
+        public final String[] getCommandIdentifiers() {
             return identifiers;
         }
 
         @Override
-        public String getBriefHelp() {
+        public final String getBriefHelp() {
+            if (commandBriefHelp == null) {
+                commandBriefHelp = this.initBriefHelp();
+            }
             return commandBriefHelp;
+        }
+
+        /**
+         * Initialize the action's brief help.
+         *
+         * @return the action's brief help.
+         *
+         * @see #getBriefHelp()
+         * @see #resetBriefHelp()
+         *
+         * @since 1.4
+         */
+        protected String initBriefHelp() {
+            // Initialize the element brief help from the parent action and item
+            this.commandBriefHelp = "Set " + parentAction.getDefaultCommandIdentifier() + " to " + dataItem.toString();
+            return this.commandBriefHelp;
+        }
+
+        /**
+         * Reset to {@code null} the action's brief help.
+         *
+         * <p>
+         * The next call to {@link #getBriefHelp() } will initialize the
+         * action's brief help. In the meantime, the brief help will remain
+         * empty.</p>
+         *
+         * @see #getBriefHelp()
+         * @see #initBriefHelp()
+         *
+         * @since 1.4
+         */
+        public final void resetBriefHelp() {
+            commandBriefHelp = null;
         }
 
     }

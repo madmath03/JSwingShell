@@ -52,12 +52,12 @@ public class ActionGroup implements Serializable {
         }
         actions.add(a);
 
-        if (a.isSelected()) {
-            if (selection == null) {
-                selection = a;
-            } else {
-                a.setSelected(false);
-            }
+        // If action has a "selected" state at true and the group has no selection
+        Boolean isActionSelected = a.isSelected();
+        if (selection == null && isActionSelected != null && isActionSelected) {
+            selection = a;
+        } else {
+            a.setSelected(false);
         }
 
         a.setGroup(this);
@@ -152,4 +152,27 @@ public class ActionGroup implements Serializable {
         }
     }
 
+    /**
+     * Sets whether the {@code ActionGroup} is enabled.
+     *
+     * <p>
+     * Enabling or disabling an {@code ActionGroup} consists in
+     * enabling/disabling all actions contained in the group.</p>
+     *
+     * @param newValue {@code true} to enable the actions in the group,
+     * {@code false} to disable them
+     * 
+     * @see Action#setEnabled
+     * 
+     * @since 1.4
+     */
+    public void setEnabled(boolean newValue) {
+        if (actions == null || actions.isEmpty()) {
+            return;
+        }
+
+        for (AbstractJssSwitchAction action : actions) {
+            action.setEnabled(newValue);
+        }
+    }
 }

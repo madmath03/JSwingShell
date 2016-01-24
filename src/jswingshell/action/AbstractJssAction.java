@@ -19,10 +19,20 @@ import jswingshell.IJssController;
  */
 public abstract class AbstractJssAction extends AbstractAction implements IJssAction {
 
-    protected static final Map<IJssAction, String> commandIdentifiersAsString = new HashMap<>();
+    /**
+     * A map of actions with their full list of identifiers stored as a 
+     * displayable {@code String}.
+     */
+    protected static final Map<IJssAction, String> COMMAND_IDENTIFIERS_AS_STRING = new HashMap<>();
 
+    /**
+     * Get the full list of identifiers stored as a displayable {@code String} 
+     * of a given action.
+     * @param action the action for which to retrieve the command identifiers
+     * @return the full list of identifiers of the action
+     */
     protected static final String getCommandIdentifiersAsString(IJssAction action) {
-        if (action != null && !commandIdentifiersAsString.containsKey(action)) {
+        if (action != null && !COMMAND_IDENTIFIERS_AS_STRING.containsKey(action)) {
             StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.append("{ ");
@@ -38,10 +48,10 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
             }
             stringBuilder.append(" }");
 
-            commandIdentifiersAsString.put(action, stringBuilder.toString());
+            COMMAND_IDENTIFIERS_AS_STRING.put(action, stringBuilder.toString());
         }
 
-        return commandIdentifiersAsString.get(action);
+        return COMMAND_IDENTIFIERS_AS_STRING.get(action);
     }
 
     public static final String getArgumentsAsString(Collection<String> arguments) {
@@ -66,14 +76,15 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
         return argBuilder.toString();
     }
 
+    // ######################################################################### 
     /**
      * Action's default shell controller.
      */
-    private final IJssController shellController;
+    private transient IJssController shellController;
     /**
      * Action's default arguments.
      */
-    private final String[] args;
+    private String[] args;
 
     // #########################################################################
     /**
@@ -166,12 +177,34 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
     }
 
     /**
+     * Set the default shell controller for executing this action.
+     *
+     * @param shellController the default shell controller.
+     *
+     * @since 1.4
+     */
+    public void setDefaultShellController(IJssController shellController) {
+        this.shellController = shellController;
+    }
+
+    /**
      * Get the default shell arguments for executing this action.
      *
      * @return the default arguments.
      */
     public String[] getDefaultArguments() {
         return args;
+    }
+
+    /**
+     * Set the default shell arguments for executing this action.
+     *
+     * @param args the default shell arguments for executing this action.
+     *
+     * @since 1.4
+     */
+    public void setDefaultArguments(String[] args) {
+        this.args = args;
     }
 
     // #########################################################################
@@ -206,7 +239,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      */
     @Override
     public String getHelp() {
-        return getHelp(getDefaultShellController());
+        return getHelp(this.shellController);
     }
 
     /**
@@ -284,8 +317,8 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      * than, equal to, or greater than the specified object.
      *
      * <p>
-     * The comparison is done on the actions' first command identifier found,
-     * thus allowing for lexicographically sorting of the commands.</p>
+     * The comparison is done on the actions' command identifiers found, thus
+     * allowing for lexicographically sorting of the commands.</p>
      *
      * @param o the object to be compared.
      * @return a negative integer, zero, or a positive integer as this object is
@@ -297,23 +330,25 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      */
     @Override
     public int compareTo(IJssAction o) {
-        boolean thisActionHasIdentifiers = this.getCommandIdentifiers() != null && this.getCommandIdentifiers().length > 0;
-        boolean secondActionHasIdentifiers = o.getCommandIdentifiers() != null && o.getCommandIdentifiers().length > 0;
-        if (thisActionHasIdentifiers && secondActionHasIdentifiers) {
-            String firstIdentifier = this.getCommandIdentifiers()[0];
-            String secondIdentifier = o.getCommandIdentifiers()[0];
-            if (firstIdentifier != null) {
-                return firstIdentifier.compareTo(secondIdentifier);
-            } else if (secondIdentifier != null) {
-                return secondIdentifier.compareTo(firstIdentifier);
-            } else {
-                return 0;
-            }
-        } else if (thisActionHasIdentifiers && !secondActionHasIdentifiers) {
-            return 1;
-        } else if (secondActionHasIdentifiers && !thisActionHasIdentifiers) {
-            return -1;
+        String[] thisActionIdentifiers = this.getCommandIdentifiers(),
+                otherActionIdentifiers = o.getCommandIdentifiers();
+        // Define size of identifiers
+        int thisActionIdentifiersSize = thisActionIdentifiers != null ? thisActionIdentifiers.length : 0,
+                otherActionIdentifiersSize = otherActionIdentifiers != null ? otherActionIdentifiers.length : 0;
+        // Compare number of identifiers
+        if (thisActionIdentifiersSize == 0 && otherActionIdentifiersSize == 0) {
+            return 0;
         } else {
+            // Compare each actions' identifier
+            for (int i = 0; i < thisActionIdentifiersSize; i++) {
+                String firstIdentifier = this.getCommandIdentifiers()[i],
+                        otherIdentifier = o.getCommandIdentifiers()[i];
+                if (firstIdentifier != null) {
+                    return firstIdentifier.compareTo(otherIdentifier);
+                } else if (otherIdentifier != null) {
+                    return otherIdentifier.compareTo(firstIdentifier);
+                }
+            }
             return 0;
         }
     }
