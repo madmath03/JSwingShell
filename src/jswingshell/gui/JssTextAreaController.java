@@ -60,7 +60,7 @@ public class JssTextAreaController extends AbstractJssController {
      */
     protected static final Font DEFAULT_FONT = new Font("LucidaSans", Font.BOLD, 11);
 
-    private JssTextArea view;
+    private transient JssTextArea view;
 
     private JssSimpleModel model;
 
@@ -313,7 +313,7 @@ public class JssTextAreaController extends AbstractJssController {
 
         String shellText = getShellText();
         int commandLinePosition = getCommandLinePosition();
-        if (commandLinePosition > -1 && shellText != null && commandLinePosition < shellText.length()) {
+        if (commandLinePosition > -1 && shellText != null && commandLinePosition <= shellText.length()) {
             commandLine = shellText.substring(commandLinePosition);
         } else {
             commandLine = null;
