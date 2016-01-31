@@ -6,6 +6,11 @@ JSwingShell, or JSS, was originally developped as an alternative to (often heavy
 JSS provides a set of tools to create actions that can be executed both by a GUI and by an *internal* shell.
 In other words, this is a framework to make a Java Swing application scriptable, allowing your application to create and execute scripts of all your actions.
 
+## Demonstrations
+- [JSwingShell Simple Demo] (https://github.com/madmath03/JSwingShell-SimpleDemo)
+- [JSwingShell Advanced Demo] (https://github.com/madmath03/JSwingShell-AdvancedDemo)
+- [JSwingShell-JssFrame] (https://github.com/madmath03/JSwingShell-JssFrame)
+
 ## Contributing
 **CONTRIBUTING** file coming soon...
 
