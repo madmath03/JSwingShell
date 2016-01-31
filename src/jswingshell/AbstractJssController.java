@@ -2,6 +2,7 @@ package jswingshell;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,7 +24,7 @@ import jswingshell.action.IJssAction;
  *
  * @author Mathieu Brunot
  */
-public abstract class AbstractJssController extends java.awt.event.KeyAdapter implements IJssController {
+public abstract class AbstractJssController extends java.awt.event.KeyAdapter implements IJssController, Serializable {
 
     /**
      * The arguments default separator.
@@ -98,14 +99,14 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      *
      * @since 1.4
      */
-    private IJssAction currentAction;
+    private transient IJssAction currentAction;
 
     /**
      * The list of actions currently in progress.
      *
      * @since 1.4
      */
-    private List<AbstractThreadedJssAction> actionsInProgress = new ArrayList<>();
+    private transient List<AbstractThreadedJssAction> actionsInProgress = new ArrayList<>();
 
     /**
      * The list of property change listeners for the action(s) currently in
@@ -113,7 +114,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      *
      * @since 1.4
      */
-    private List<PropertyChangeListener> actionsPropertyChangeListeners = new ArrayList<>();
+    private transient List<PropertyChangeListener> actionsPropertyChangeListeners = new ArrayList<>();
 
     // #########################################################################
     // Constructors
@@ -704,7 +705,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      * the history is disabled.</p>
      *
      */
-    public static class CommandHistory {
+    public static class CommandHistory implements Serializable {
 
         /**
          * Default value for the duplication mode.
@@ -1118,49 +1119,35 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      * This command line parser behaves in a way very similar to C/C++:</p>
      * <ul>
      * <li>
-     * <p>
-     * The first argument is the the command id.</p>
-     * </li>
+     * The first argument is the the command id.</li>
      * <li>
-     * <p>
      * Arguments are delimited by white space, which is either a space or a
-     * tab.</p>
-     * </li>
+     * tab.</li>
      * <li>
-     * <p>
      * A string surrounded by double quotation marks is interpreted as a single
      * argument, regardless of white space contained within. A quoted string can
      * be embedded in an argument. Note that the caret (<strong>^</strong>) is
-     * not recognized as an escape character or delimiter. </p>
-     * </li>
+     * not recognized as an escape character or delimiter.</li>
      * <li>
-     * <p>
      * A double quotation mark preceded by a backslash, <strong>\"</strong>, is
-     * interpreted as a literal double quotation mark (<strong>"</strong>).</p>
-     * </li>
+     * interpreted as a literal double quotation mark (<strong>"</strong>).</li>
      * <li>
-     * <p>
      * Backslashes are interpreted literally, unless they immediately precede a
-     * double quotation mark.</p>
-     * </li>
+     * double quotation mark.</li>
      * <li>
-     * <p>
      * If an even number of backslashes is followed by a double quotation mark,
      * then one backslash (<strong>\</strong>) is placed in the
      * <span class="parameter">argv</span> array for every pair of backslashes
      * (<strong>\\</strong>), and the double quotation mark (<strong>"</strong>)
-     * is interpreted as a string delimiter.</p>
-     * </li>
+     * is interpreted as a string delimiter.</li>
      * <li>
-     * <p>
      * If an odd number of backslashes is followed by a double quotation mark,
      * then one backslash (<strong>\</strong>) is placed in the
      * <span class="parameter">argv</span> array for every pair of backslashes
      * (<strong>\\</strong>) and the double quotation mark is interpreted as an
      * escape sequence by the remaining backslash, causing a literal double
      * quotation mark (<strong>"</strong>) to be placed in
-     * <span class="parameter">argv</span>.</p>
-     * </li>
+     * <span class="parameter">argv</span>.</li>
      *
      * </ul>
      *
@@ -1168,17 +1155,17 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
      * @see
      * "http://www.daviddeley.com/autohotkey/parameters/parameters.htm#WINARGV"
      */
-    public static class CommandLineParser {
+    public static class CommandLineParser implements Serializable {
 
-        private StringBuilder parameterStringBuilder = null;
+        private transient StringBuilder parameterStringBuilder = null;
 
-        private List<String> parameters = null;
+        private transient List<String> parameters = null;
 
-        private int argc = 0;
+        private transient int argc = 0;
 
-        private int countBackslashes = 0;
+        private transient int countBackslashes = 0;
 
-        private boolean insideDoubleQuotedPart = false;
+        private transient boolean insideDoubleQuotedPart = false;
 
         private void initParserProperties(String commandLine) {
             countBackslashes = 0;
@@ -1260,51 +1247,37 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
          * This command line parser behaves in a way very similar to C/C++:</p>
          * <ul>
          * <li>
-         * <p>
-         * The first argument is the the command id.</p>
-         * </li>
+         * The first argument is the the command id.</li>
          * <li>
-         * <p>
          * Arguments are delimited by white space, which is either a space or a
-         * tab.</p>
-         * </li>
+         * tab.</li>
          * <li>
-         * <p>
          * A string surrounded by double quotation marks is interpreted as a
          * single argument, regardless of white space contained within. A quoted
          * string can be embedded in an argument. Note that the caret
          * (<strong>^</strong>) is not recognized as an escape character or
-         * delimiter. </p>
-         * </li>
+         * delimiter.</li>
          * <li>
-         * <p>
          * A double quotation mark preceded by a backslash, <strong>\"</strong>,
          * is interpreted as a literal double quotation mark
-         * (<strong>"</strong>).</p>
-         * </li>
+         * (<strong>"</strong>).</li>
          * <li>
-         * <p>
          * Backslashes are interpreted literally, unless they immediately
-         * precede a double quotation mark.</p>
-         * </li>
+         * precede a double quotation mark.</li>
          * <li>
-         * <p>
          * If an even number of backslashes is followed by a double quotation
          * mark, then one backslash (<strong>\</strong>) is placed in the
          * <span class="parameter">argv</span> array for every pair of
          * backslashes (<strong>\\</strong>), and the double quotation mark
-         * (<strong>"</strong>) is interpreted as a string delimiter.</p>
-         * </li>
+         * (<strong>"</strong>) is interpreted as a string delimiter.</li>
          * <li>
-         * <p>
          * If an odd number of backslashes is followed by a double quotation
          * mark, then one backslash (<strong>\</strong>) is placed in the
          * <span class="parameter">argv</span> array for every pair of
          * backslashes (<strong>\\</strong>) and the double quotation mark is
          * interpreted as an escape sequence by the remaining backslash, causing
          * a literal double quotation mark (<strong>"</strong>) to be placed in
-         * <span class="parameter">argv</span>.</p>
-         * </li>
+         * <span class="parameter">argv</span>.</li>
          *
          * </ul>
          *
