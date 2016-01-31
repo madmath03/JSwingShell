@@ -9,6 +9,20 @@ Project version YYYY-MM-DD  John Doe  <johndoe@example.com>
 
     * anotherfile.ext (somefunction): more changes
 
+JSwingShell 1.4 2016-01-31  Mathieu Brunot  <mathieu.brunot@mbrunot.com>
+
+    * Making JssActions serializable (MVC & GUI members marked as non final and 
+    transient).
+
+    * Making ActionGroup serializable .
+
+    * Making JssAModel serializable (MVC members marked as non final and 
+    transient).
+
+    * Removed all sample actions from JSwingShell.
+
+    * Allowed inheritance of JssComboAction internal worker.
+
 JSwingShell 1.3 2015-09-19  Mathieu Brunot  <mathieu.brunot@mbrunot.com>
 
     * AbstractJssComboAction.java: creation of inner combo item actions
