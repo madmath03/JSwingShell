@@ -184,8 +184,8 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
      * {@inheritDoc }
      */
     @Override
-    public Object getSelectedItem() {
-        return dataModel.getSelectedItem();
+    public T getSelectedItem() {
+        return (T) dataModel.getSelectedItem();
     }
 
     /**
@@ -319,7 +319,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
             }
         } else {
             // If no event, retrieve the state of the action itself (should already be updated by Swing)
-            T selectedItem = (T) getSelectedItem();
+            T selectedItem = getSelectedItem();
             Map<T, Collection<String>> valuesByArgument = getSwitchArgumentsByValue();
             if (selectedItem != null && valuesByArgument != null
                     && valuesByArgument.containsKey(selectedItem)) {
