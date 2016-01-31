@@ -51,13 +51,13 @@ import javax.swing.text.TextAction;
  * 
  * <p>
  * The {@code JTextArea}'s {@link #setCaret(javax.swing.text.Caret)} method 
- * is now used to set the caret for the current mode:
+ * is now used to set the caret for the current mode:</p>
  * <ul>
  * <li>If {@code #isOverwriting()} is {@code true}, the {@code setCaret}
  * will call {@code #setOverwriteCaret}.</li>
  * <li>If {@code #isOverwriting()} is {@code false}, the {@code setCaret}
  * will call {@code #setInsertCaret}.</li>
- * </ul></p>
+ * </ul>
  * 
  * @beaninfo
  *   attribute: isContainer false
@@ -131,10 +131,10 @@ public class OverwritableTextField extends JTextField {
      *          <code>createDefaultModel</code> method
      * @param text  the initial string to display, or <code>null</code>
      * @param columns  the number of columns to use to calculate
-     *   the preferred width >= 0; if <code>columns</code>
+     *   the preferred width &gt;= 0; if <code>columns</code>
      *   is set to zero, the preferred width will be whatever
      *   naturally results from the component implementation
-     * @exception IllegalArgumentException if <code>columns</code> < 0
+     * @exception IllegalArgumentException if <code>columns</code> &lt; 0
      */
     public OverwritableTextField(Document doc, String text, int columns) {
         super(doc, text, columns);
@@ -240,13 +240,13 @@ public class OverwritableTextField extends JTextField {
      * Sets the caret to be used.
      *
      * <p>
-     * The method will set the caret for the current overwriting mode:
+     * The method will set the caret for the current overwriting mode:</p>
      * <ul>
      * <li>If {@code #isOverwriting()} is {@code true}, the {@code setCaret}
      * will call {@code #setOverwriteCaret}.</li>
      * <li>If {@code #isOverwriting()} is {@code false}, the {@code setCaret}
      * will call {@code #setInsertCaret}.</li>
-     * </ul></p>
+     * </ul>
      * 
      * @param caret the caret
      * @see #getCaret

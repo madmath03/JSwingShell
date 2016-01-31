@@ -53,13 +53,13 @@ import javax.swing.text.TextAction;
  * 
  * <p>
  * The {@code JTextArea}'s {@link #setCaret(javax.swing.text.Caret)} method 
- * is now used to set the caret for the current mode:
+ * is now used to set the caret for the current mode:</p>
  * <ul>
  * <li>If {@code #isOverwriting()} is {@code true}, the {@code setCaret}
  * will call {@code #setOverwriteCaret}.</li>
  * <li>If {@code #isOverwriting()} is {@code false}, the {@code setCaret}
  * will call {@code #setInsertCaret}.</li>
- * </ul></p>
+ * </ul>
  * 
  * @beaninfo
  *   attribute: isContainer false
@@ -96,8 +96,8 @@ public class OverwritableTextArea extends JTextArea {
      * rows and columns. A default model is created, and the initial string is
      * null.
      *
-     * @param rows the number of rows >= 0
-     * @param columns the number of columns >= 0
+     * @param rows the number of rows &gt;= 0
+     * @param columns the number of columns &gt;= 0
      * @exception IllegalArgumentException if the rows or columns arguments are
      * negative.
      */
@@ -110,8 +110,8 @@ public class OverwritableTextArea extends JTextArea {
      * of rows and columns. A default model is created.
      *
      * @param text the text to be displayed, or null
-     * @param rows the number of rows >= 0
-     * @param columns the number of columns >= 0
+     * @param rows the number of rows &gt;= 0
+     * @param columns the number of columns &gt;= 0
      * @exception IllegalArgumentException if the rows or columns arguments are
      * negative.
      */
@@ -136,8 +136,8 @@ public class OverwritableTextArea extends JTextArea {
      *
      * @param doc the model to use, or create a default one if null
      * @param text the text to be displayed, null if none
-     * @param rows the number of rows >= 0
-     * @param columns the number of columns >= 0
+     * @param rows the number of rows &gt;= 0
+     * @param columns the number of columns &gt;= 0
      * @exception IllegalArgumentException if the rows or columns arguments are
      * negative.
      */
@@ -245,13 +245,13 @@ public class OverwritableTextArea extends JTextArea {
      * Sets the caret to be used.
      *
      * <p>
-     * The method will set the caret for the current overwriting mode:
+     * The method will set the caret for the current overwriting mode:</p>
      * <ul>
      * <li>If {@code #isOverwriting()} is {@code true}, the {@code setCaret}
      * will call {@code #setOverwriteCaret}.</li>
      * <li>If {@code #isOverwriting()} is {@code false}, the {@code setCaret}
      * will call {@code #setInsertCaret}.</li>
-     * </ul></p>
+     * </ul>
      * 
      * @param caret the caret
      * @see #getCaret

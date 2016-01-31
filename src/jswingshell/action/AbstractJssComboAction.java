@@ -133,8 +133,9 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
      *
      * @param aModel the {@code ComboBoxModel} that provides the list of items
      *
-     * @beaninfo bound: true description: Model that the combo box uses to get
-     * data to display.
+     * @beaninfo 
+     *       bound: true 
+     * description: Model that the combo box uses to get data to display.
      */
     public final void setModel(ComboBoxModel<T> aModel) {
         this.dataModel = aModel;
