@@ -9,7 +9,7 @@ Project version YYYY-MM-DD  John Doe  <johndoe@example.com>
 
     * anotherfile.ext (somefunction): more changes
 
-JSwingShell 1.4 2016-01-31  Mathieu Brunot  <mathieu.brunot@mbrunot.com>
+JSwingShell 1.4.0 2016-01-31  Mathieu Brunot  <mathieu.brunot@mbrunot.com>
 
     * Making JssActions serializable (MVC & GUI members marked as non final and 
     transient).
