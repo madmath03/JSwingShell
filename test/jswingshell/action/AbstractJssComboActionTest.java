@@ -69,8 +69,6 @@ public class AbstractJssComboActionTest {
         System.out.println("setModel");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.setModel(null);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -80,11 +78,9 @@ public class AbstractJssComboActionTest {
     public void testGetModel() {
         System.out.println("getModel");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        ComboBoxModel expResult = null;
+        ComboBoxModel notExpResult = null;
         ComboBoxModel result = instance.getModel();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(notExpResult, result);
     }
 
     /**
@@ -96,8 +92,6 @@ public class AbstractJssComboActionTest {
         Object anItem = null;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.setSelectedItem(anItem);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -110,8 +104,6 @@ public class AbstractJssComboActionTest {
         Object expResult = null;
         Object result = instance.getSelectedItem();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -124,8 +116,6 @@ public class AbstractJssComboActionTest {
         int expResult = 0;
         int result = instance.getSize();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -139,8 +129,6 @@ public class AbstractJssComboActionTest {
         Object expResult = null;
         Object result = instance.getElementAt(index);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -152,8 +140,6 @@ public class AbstractJssComboActionTest {
         ListDataListener l = null;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.addListDataListener(l);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -165,8 +151,6 @@ public class AbstractJssComboActionTest {
         ListDataListener l = null;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.removeListDataListener(l);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -179,8 +163,6 @@ public class AbstractJssComboActionTest {
         Object newValue = null;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.putValue(key, newValue);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -192,8 +174,6 @@ public class AbstractJssComboActionTest {
         boolean newValue = false;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.setEnabled(newValue);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -204,11 +184,9 @@ public class AbstractJssComboActionTest {
         System.out.println("getHelp");
         IJssController shellController = null;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        String expResult = "";
+        String notExpResult = "";
         String result = instance.getHelp(shellController);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(notExpResult, result);
     }
 
     /**
@@ -222,8 +200,6 @@ public class AbstractJssComboActionTest {
         String[] expResult = null;
         String[] result = instance.extractArgumentsFromEvent(e);
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -235,11 +211,9 @@ public class AbstractJssComboActionTest {
         IJssController shellController = null;
         String[] args = null;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        int expResult = 0;
+        int expResult = IJssAction.ERROR;
         int result = instance.run(shellController, args);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -249,11 +223,9 @@ public class AbstractJssComboActionTest {
     public void testGetSwitchValuesByArgument() {
         System.out.println("getSwitchValuesByArgument");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        Map expResult = null;
+        Map notExpResult = null;
         Map result = instance.getSwitchValuesByArgument();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(notExpResult, result);
     }
 
     /**
@@ -263,11 +235,9 @@ public class AbstractJssComboActionTest {
     public void testGetSwitchArgumentsByValue() {
         System.out.println("getSwitchArgumentsByValue");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        Map expResult = null;
+        Map notExpResult = null;
         Map result = instance.getSwitchArgumentsByValue();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(notExpResult, result);
     }
 
     /**
@@ -281,8 +251,6 @@ public class AbstractJssComboActionTest {
         boolean expResult = false;
         boolean result = instance.doSwitch(switchValue);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -297,8 +265,6 @@ public class AbstractJssComboActionTest {
         boolean expResult = false;
         boolean result = instance.doSwitch(shellController, switchValue);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -308,11 +274,9 @@ public class AbstractJssComboActionTest {
     public void testConstructArgumentsByValue() {
         System.out.println("constructArgumentsByValue");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        Map expResult = null;
+        Map notExpResult = null;
         Map result = instance.constructArgumentsByValue();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(notExpResult, result);
     }
 
     /**
@@ -325,8 +289,6 @@ public class AbstractJssComboActionTest {
         ActionGroup expResult = null;
         ActionGroup result = instance.getInnerGroup();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -338,8 +300,6 @@ public class AbstractJssComboActionTest {
         ActionGroup innerGroup = null;
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.setInnerGroup(innerGroup);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -349,11 +309,9 @@ public class AbstractJssComboActionTest {
     public void testGetInnerElementActions() {
         System.out.println("getInnerElementActions");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        Collection<AbstractJssComboAction.ComboElementAction<String>> expResult = null;
-        Collection<AbstractJssComboAction.ComboElementAction<String>> result = instance.getInnerElementActions();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Collection<AbstractJssComboAction<String>.ComboElementAction<String>> notExpResult = null;
+        Collection<AbstractJssComboAction<String>.ComboElementAction<String>> result = instance.getInnerElementActions();
+        assertNotEquals(notExpResult, result);
     }
 
     /**
@@ -366,8 +324,6 @@ public class AbstractJssComboActionTest {
         boolean expResult = false;
         boolean result = instance.hasInnerElementActions();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -377,11 +333,9 @@ public class AbstractJssComboActionTest {
     public void testInitInnerElements() {
         System.out.println("initInnerElements");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-        Collection<AbstractJssComboAction.ComboElementAction<String>> expResult = null;
-        Collection<AbstractJssComboAction.ComboElementAction<String>> result = instance.initInnerElements();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Collection<AbstractJssComboAction<String>.ComboElementAction<String>> notExpResult = null;
+        Collection<AbstractJssComboAction<String>.ComboElementAction<String>> result = instance.initInnerElements();
+        assertNotEquals(notExpResult, result);
     }
 
     /**
@@ -392,8 +346,6 @@ public class AbstractJssComboActionTest {
         System.out.println("resetInnerElements");
         AbstractJssComboAction instance = new AbstractJssComboActionImpl();
         instance.resetInnerElements();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     public class AbstractJssComboActionImpl extends AbstractJssComboAction<String> {
