@@ -204,7 +204,7 @@ public class JssTextAreaControllerTest {
         JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
         int notExpResult = 0;
         int result = instance.getCommandLinePosition();
-        assertNotEquals(notExpResult, result);
+        assertTrue(notExpResult < result);
     }
 
     /**
@@ -214,9 +214,9 @@ public class JssTextAreaControllerTest {
     public void testGetCaretPosition() {
         System.out.println("getCaretPosition");
         JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
-        int notExpResult = 4;
+        int notExpResult = 0;
         int result = instance.getCaretPosition();
-        assertNotEquals(notExpResult, result);
+        assertTrue(notExpResult < result);
     }
 
     /**
