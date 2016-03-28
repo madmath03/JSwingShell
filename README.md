@@ -1,5 +1,9 @@
 # JSwingShell
-JSwingShell, a Java Swing based shell framework.
+
+[![Build
+Status](https://secure.travis-ci.org/madmath03/JSwingShell.png)](https://travis-ci.org/madmath03/JSwingShell)
+
+JSwingShell, a Java Swing based shell framework for scriptable actions.
 
 # Summary
 JSwingShell, or JSS, was originally developped as an alternative to (often heavy) third party tools for automated tests of a heavy GUI application.
@@ -12,7 +16,7 @@ In other words, this is a framework to make a Java Swing application scriptable,
 - [JSwingShell-JssFrame] (https://github.com/madmath03/JSwingShell-JssFrame)
 
 ## Contributing
-**CONTRIBUTING** file coming soon...
+See [CONTRIBUTING](https://github.com/madmath03/JSwingShell/blob/master/CONTRIBUTING.md) file.
 
 ## License
 JSwingShell is distributed under the MIT Licence.
