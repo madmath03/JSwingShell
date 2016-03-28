@@ -16,7 +16,7 @@ In other words, this is a framework to make a Java Swing application scriptable,
 - [JSwingShell-JssFrame] (https://github.com/madmath03/JSwingShell-JssFrame)
 
 ## Contributing
-See CONTRIBUTING file.
+See [CONTRIBUTING](https://github.com/madmath03/JSwingShell/blob/master/CONTRIBUTING.md) file.
 
 ## License
 JSwingShell is distributed under the MIT Licence.
