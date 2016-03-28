@@ -188,8 +188,6 @@ public class JssTextAreaController extends AbstractJssController {
 
         addNewCommandLine();
         unlockShellTextArea();
-        // Set caret to the end of the document
-        setCaretToEndOfDocument();
 
         // Ensure the view is linked to this shell controller
         getView().setController(this);
@@ -287,23 +285,15 @@ public class JssTextAreaController extends AbstractJssController {
 
     @Override
     public void addNewCommandLine() {
-        String newCommandLineStart = getNewCommandLine();
-        getView().getJShellTextArea().append(newCommandLineStart);
-        if (commandLineStart < 0) {
-            commandLineStart = getView().getShellText().lastIndexOf(newCommandLineStart);
-        }
-        commandLineStart += newCommandLineStart.length();
-        setCaretPosition(commandLineStart);
+        this.addNewCommandLine("");
     }
 
     @Override
     public void addNewCommandLine(String newCommandLine) {
         String newCommandLineStart = getNewCommandLine();
         getView().getJShellTextArea().append(newCommandLineStart + newCommandLine);
-        if (commandLineStart < 0) {
-            commandLineStart = getView().getShellText().lastIndexOf(newCommandLineStart);
-        }
-        commandLineStart += newCommandLineStart.length();
+        // Set caret to the end of the document
+        commandLineStart = getView().getJShellTextArea().getDocument().getLength();
         setCaretPosition(commandLineStart);
     }
 
