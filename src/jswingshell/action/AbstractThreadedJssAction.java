@@ -27,15 +27,15 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
     private final transient List<AbstractJssActionWorker> activeWorkers = new ArrayList<>();
 
     // #########################################################################
-    public AbstractThreadedJssAction(String name, Icon icon, IJssController shellController, String[] args) {
+    public AbstractThreadedJssAction(String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon, shellController, args);
     }
 
-    public AbstractThreadedJssAction(String name, IJssController shellController, String[] args) {
+    public AbstractThreadedJssAction(String name, IJssController shellController, String... args) {
         super(name, shellController, args);
     }
 
-    public AbstractThreadedJssAction(IJssController shellController, String[] args) {
+    public AbstractThreadedJssAction(IJssController shellController, String... args) {
         super(shellController, args);
     }
 
@@ -64,7 +64,7 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
      * @return the return status code of the action.
      */
     @Override
-    public int run(IJssController shellController, String[] args) {
+    public int run(IJssController shellController, String... args) {
         int commandReturnStatus;
 
         AbstractJssActionWorker worker = this.prepareWorker(shellController, args);
@@ -88,11 +88,11 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
         return prepareWorker(this.getDefaultShellController(), this.getDefaultArguments());
     }
 
-    protected AbstractJssActionWorker prepareWorker(String[] args) {
+    protected AbstractJssActionWorker prepareWorker(String... args) {
         return prepareWorker(this.getDefaultShellController(), args);
     }
 
-    protected abstract AbstractJssActionWorker prepareWorker(IJssController shellController, String[] args);
+    protected abstract AbstractJssActionWorker prepareWorker(IJssController shellController, String... args);
 
     /**
      * Get the list of active workers.

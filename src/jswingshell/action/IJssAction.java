@@ -46,7 +46,8 @@ public interface IJssAction extends Action, Comparable<IJssAction> {
      * If this command has no identifiers, returns {@code null}.</p>
      *
      * <p>
-     * The default identifier is usually the first of the command identifiers.</p>
+     * The default identifier is usually the first of the command
+     * identifiers.</p>
      *
      * @return the default identifier for this shell command, {@code null} if
      * none
@@ -116,7 +117,7 @@ public interface IJssAction extends Action, Comparable<IJssAction> {
      *
      * @see #run(jswingshell.IJssController, java.lang.String[])
      */
-    public int run(String[] args);
+    public int run(String... args);
 
     /**
      * Run the action for a given shell controller and given arguments.
@@ -128,6 +129,6 @@ public interface IJssAction extends Action, Comparable<IJssAction> {
      *
      * @return the return status code of the action.
      */
-    public int run(IJssController shellController, String[] args);
+    public int run(IJssController shellController, String... args);
 
 }

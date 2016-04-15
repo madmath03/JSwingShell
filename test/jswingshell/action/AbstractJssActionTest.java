@@ -270,7 +270,7 @@ public class AbstractJssActionTest {
             return null;
         }
 
-        public int run(IJssController shellController, String[] args) {
+        public int run(IJssController shellController, String... args) {
             return 0;
         }
 

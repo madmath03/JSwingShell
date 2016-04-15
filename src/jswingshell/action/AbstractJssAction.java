@@ -98,24 +98,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      * java.lang.String[])
      */
     public AbstractJssAction() {
-        this(null, null);
-    }
-
-    /**
-     * Creates an {@code AbstractShellAction} with the specified default shell
-     * controller.
-     *
-     * <p>
-     * No default arguments are defined for this action (set to
-     * {@code null}).</p>
-     *
-     * @param shellController the default shell controller
-     *
-     * @see AbstractJssAction#AbstractJssAction(jswingshell.IJssController,
-     * java.lang.String[])
-     */
-    public AbstractJssAction(IJssController shellController) {
-        this(shellController, null);
+        this(null, (String[]) null);
     }
 
     /**
@@ -126,7 +109,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      * @param args the default arguments for executing this action through a
      * shell
      */
-    public AbstractJssAction(IJssController shellController, String[] args) {
+    public AbstractJssAction(IJssController shellController, String... args) {
         super();
         this.shellController = shellController;
         this.args = args;
@@ -142,7 +125,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      * @param args the default arguments for executing this action through a
      * shell
      */
-    public AbstractJssAction(String name, IJssController shellController, String[] args) {
+    public AbstractJssAction(String name, IJssController shellController, String... args) {
         super(name);
         this.shellController = shellController;
         this.args = args;
@@ -160,7 +143,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      * @param args the default arguments for executing this action through a
      * shell
      */
-    public AbstractJssAction(String name, Icon icon, IJssController shellController, String[] args) {
+    public AbstractJssAction(String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon);
         this.shellController = shellController;
         this.args = args;
@@ -203,7 +186,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      *
      * @since 1.4
      */
-    public void setDefaultArguments(String[] args) {
+    public void setDefaultArguments(String... args) {
         this.args = args;
     }
 
@@ -247,14 +230,14 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      */
     @Override
     public int run() {
-        return run(this.args);
+        return run(this.shellController, this.args);
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public int run(String[] args) {
+    public int run(String... args) {
         return run(this.shellController, args);
     }
 
@@ -262,7 +245,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
      * {@inheritDoc }
      */
     @Override
-    public abstract int run(IJssController shellController, String[] args);
+    public abstract int run(IJssController shellController, String... args);
 
     @Override
     public void actionPerformed(ActionEvent e) {

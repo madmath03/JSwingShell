@@ -107,29 +107,29 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
         setSelected(selected);
     }
 
-    public AbstractJssSwitchAction(IJssController shellController, String[] args) {
+    public AbstractJssSwitchAction(IJssController shellController, String... args) {
         super(shellController, args);
     }
 
-    public AbstractJssSwitchAction(Boolean selected, IJssController shellController, String[] args) {
+    public AbstractJssSwitchAction(Boolean selected, IJssController shellController, String... args) {
         super(shellController, args);
         setSelected(selected);
     }
 
-    public AbstractJssSwitchAction(String name, IJssController shellController, String[] args) {
+    public AbstractJssSwitchAction(String name, IJssController shellController, String... args) {
         super(name, shellController, args);
     }
 
-    public AbstractJssSwitchAction(Boolean selected, String name, IJssController shellController, String[] args) {
+    public AbstractJssSwitchAction(Boolean selected, String name, IJssController shellController, String... args) {
         super(name, shellController, args);
         setSelected(selected);
     }
 
-    public AbstractJssSwitchAction(String name, Icon icon, IJssController shellController, String[] args) {
+    public AbstractJssSwitchAction(String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon, shellController, args);
     }
 
-    public AbstractJssSwitchAction(Boolean selected, String name, Icon icon, IJssController shellController, String[] args) {
+    public AbstractJssSwitchAction(Boolean selected, String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon, shellController, args);
         setSelected(selected);
     }
@@ -156,7 +156,7 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
     }
 
     @Override
-    public int run(IJssController shellController, String[] args) {
+    public int run(IJssController shellController, String... args) {
         int commandReturnStatus = AbstractJssAction.SUCCESS;
 
         // Init with property (already updated by JCheckBox items)

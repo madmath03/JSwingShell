@@ -87,41 +87,41 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
         this.dataModel = aModel;
     }
 
-    public AbstractJssComboAction(IJssController shellController, String[] args) {
+    public AbstractJssComboAction(IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<T>(), shellController, args);
     }
 
-    public AbstractJssComboAction(T[] items, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(T[] items, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<>(items), shellController, args);
     }
 
-    public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController, String... args) {
         super(shellController, args);
         this.dataModel = aModel;
     }
 
-    public AbstractJssComboAction(String name, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(String name, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<T>(), name, shellController, args);
     }
 
-    public AbstractJssComboAction(T[] items, String name, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(T[] items, String name, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<>(items), name, shellController, args);
     }
 
-    public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, IJssController shellController, String... args) {
         super(name, shellController, args);
         this.dataModel = aModel;
     }
 
-    public AbstractJssComboAction(String name, Icon icon, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(String name, Icon icon, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<T>(), name, icon, shellController, args);
     }
 
-    public AbstractJssComboAction(T[] items, String name, Icon icon, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(T[] items, String name, Icon icon, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<>(items), name, icon, shellController, args);
     }
 
-    public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, Icon icon, IJssController shellController, String[] args) {
+    public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon, shellController, args);
         this.dataModel = aModel;
     }
@@ -133,9 +133,8 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
      *
      * @param aModel the {@code ComboBoxModel} that provides the list of items
      *
-     * @beaninfo 
-     *       bound: true 
-     * description: Model that the combo box uses to get data to display.
+     * @beaninfo bound: true description: Model that the combo box uses to get
+     * data to display.
      */
     public final void setModel(ComboBoxModel<T> aModel) {
         this.dataModel = aModel;
@@ -333,7 +332,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
     }
 
     @Override
-    public int run(IJssController shellController, String[] args) {
+    public int run(IJssController shellController, String... args) {
         int commandReturnStatus = AbstractJssAction.SUCCESS;
 
         T switchValue = null;
@@ -609,7 +608,10 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
          * {@code ComboElementAction}
          */
         protected ComboElementAction(AbstractJssComboAction<T> parentAction, T dataItem) {
-            super(dataItem.equals(parentAction.getSelectedItem()), dataItem.toString(), parentAction.getDefaultShellController(), new String[]{parentAction.getDefaultCommandIdentifier(), dataItem.toString()});
+            super(dataItem.equals(parentAction.getSelectedItem()), 
+                    dataItem.toString(), 
+                    parentAction.getDefaultShellController(), 
+                    new String[]{parentAction.getDefaultCommandIdentifier(), dataItem.toString()});
 
             this.parentAction = parentAction;
             this.dataItem = dataItem;
