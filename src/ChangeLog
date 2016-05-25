@@ -9,12 +9,21 @@ Project version YYYY-MM-DD  John Doe  <johndoe@example.com>
 
     * anotherfile.ext (somefunction): more changes
 
+JSwingShell 1.4.1 2016-05-25  Mathieu Brunot  <mathieu.brunot@mbrunot.com>
+
+    * Making AbstractJssSwitchAction & AbstractJssComboAction compatible simple 
+    buttons.
+
+    * Use of varargs for actions arguments.
+
+    * Finally added some (basic) JUnit test cases.
+
 JSwingShell 1.4.0 2016-01-31  Mathieu Brunot  <mathieu.brunot@mbrunot.com>
 
     * Making JssActions serializable (MVC & GUI members marked as non final and 
     transient).
 
-    * Making ActionGroup serializable .
+    * Making ActionGroup serializable.
 
     * Making JssAModel serializable (MVC members marked as non final and 
     transient).
