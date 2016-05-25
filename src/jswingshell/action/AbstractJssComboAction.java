@@ -35,7 +35,13 @@ import jswingshell.IJssController;
  */
 public abstract class AbstractJssComboAction<T> extends AbstractJssAction implements ComboBoxModel<T> {
 
+    /**
+     * A map of items with their {@code Collection} of associated values.
+     */
     protected transient Map<T, Collection<String>> switchArgumentsByValue = null;
+    /**
+     * A map of values with their associated item.
+     */
     protected transient Map<String, T> switchValuesByArgument = null;
 
     /**
@@ -61,66 +67,202 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
     private transient Collection<ComboElementAction<T>> innerElementActions = null;
 
     // #########################################################################
+    /**
+     * Creates an {@code AbstractJssComboAction}.
+     */
     public AbstractJssComboAction() {
         this(new DefaultComboBoxModel<T>());
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified array of
+     * objects to construct a default model for combo boxes.
+     *
+     * @param items a model for combo boxes
+     */
     public AbstractJssComboAction(T[] items) {
         this(new DefaultComboBoxModel<>(items));
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified model for
+     * combo boxes.
+     *
+     * @param aModel a model for combo boxes
+     */
     public AbstractJssComboAction(ComboBoxModel<T> aModel) {
         super();
         this.dataModel = aModel;
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified default
+     * shell controller.
+     *
+     * @param shellController the default shell controller
+     */
     public AbstractJssComboAction(IJssController shellController) {
         this(new DefaultComboBoxModel<T>(), shellController);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified array of
+     * objects to construct a default model for combo boxes and default shell
+     * controller.
+     *
+     * @param items a model for combo boxes
+     * @param shellController the default shell controller
+     */
     public AbstractJssComboAction(T[] items, IJssController shellController) {
         this(new DefaultComboBoxModel<>(items), shellController);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified model for
+     * combo boxes and default shell controller.
+     *
+     * @param aModel a model for combo boxes
+     * @param shellController the default shell controller
+     */
     public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController) {
         super(shellController);
         this.dataModel = aModel;
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified default
+     * shell controller and default arguments.
+     *
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<T>(), shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified array of
+     * objects to construct a default model for combo boxes, default shell
+     * controller and default arguments.
+     *
+     * @param items a model for combo boxes
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(T[] items, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<>(items), shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified model for
+     * combo boxes, default shell controller and default arguments.
+     *
+     * @param aModel a model for combo boxes
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController, String... args) {
         super(shellController, args);
         this.dataModel = aModel;
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified name,
+     * default shell controller and default arguments.
+     *
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(String name, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<T>(), name, shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified array of
+     * objects to construct a default model for combo boxes, name, default shell
+     * controller and default arguments.
+     *
+     * @param items a model for combo boxes
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(T[] items, String name, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<>(items), name, shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified model for
+     * combo boxes, name, default shell controller and default arguments.
+     *
+     * @param aModel a model for combo boxes
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, IJssController shellController, String... args) {
         super(name, shellController, args);
         this.dataModel = aModel;
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified name, small
+     * icon, default shell controller and default arguments.
+     *
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param icon the small icon ({@code Action.SMALL_ICON}) for the action; a
+     * value of {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(String name, Icon icon, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<T>(), name, icon, shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified array of
+     * objects to construct a default model for combo boxes, name, small icon,
+     * default shell controller and default arguments.
+     *
+     * @param items a model for combo boxes
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param icon the small icon ({@code Action.SMALL_ICON}) for the action; a
+     * value of {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(T[] items, String name, Icon icon, IJssController shellController, String... args) {
         this(new DefaultComboBoxModel<>(items), name, icon, shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssComboAction} with the specified model for
+     * combo boxes, name, small icon, default shell controller and default
+     * arguments.
+     *
+     * @param aModel a model for combo boxes
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param icon the small icon ({@code Action.SMALL_ICON}) for the action; a
+     * value of {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon, shellController, args);
         this.dataModel = aModel;
@@ -290,45 +432,74 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
     protected String[] extractArgumentsFromEvent(ActionEvent e) {
         String[] eventArgs = null;
 
-        if (e != null) {
-            if (e.getSource() instanceof JComboBox) {
-                JComboBox sourceCombo = (JComboBox) e.getSource();
-                String commandIdentifier = getDefaultCommandIdentifier();
-                Object selectedItem = sourceCombo.getSelectedItem();
-                eventArgs = new String[]{commandIdentifier, selectedItem != null ? selectedItem.toString() : null};
-            } else if (e.getSource() instanceof JRadioButton) {
-                JRadioButton sourceRadio = (JRadioButton) e.getSource();
-                String commandIdentifier = getDefaultCommandIdentifier();
-                Object selectedItem;
-                if (sourceRadio.getActionCommand() != null) {
-                    selectedItem = sourceRadio.getActionCommand();
-                } else {
-                    selectedItem = sourceRadio.getText();
-                }
-                eventArgs = new String[]{commandIdentifier, selectedItem != null ? selectedItem.toString() : null};
-            } else if (e.getSource() instanceof JRadioButtonMenuItem) {
-                JRadioButtonMenuItem sourceRadio = (JRadioButtonMenuItem) e.getSource();
-                String commandIdentifier = getDefaultCommandIdentifier();
-                Object selectedItem;
-                if (sourceRadio.getActionCommand() != null) {
-                    selectedItem = sourceRadio.getActionCommand();
-                } else {
-                    selectedItem = sourceRadio.getText();
-                }
-                eventArgs = new String[]{commandIdentifier, selectedItem != null ? selectedItem.toString() : null};
+        if (e != null && e.getSource() instanceof JComboBox) {
+            JComboBox sourceCombo = (JComboBox) e.getSource();
+            String commandIdentifier = getDefaultCommandIdentifier();
+
+            Object selectedItem = sourceCombo.getSelectedItem();
+            eventArgs = new String[]{commandIdentifier, selectedItem != null ? selectedItem.toString() : null};
+        } else if (e != null && e.getSource() instanceof JRadioButton) {
+            JRadioButton sourceRadio = (JRadioButton) e.getSource();
+            String commandIdentifier = getDefaultCommandIdentifier();
+
+            Object selectedItem;
+            if (sourceRadio.getActionCommand() != null) {
+                selectedItem = sourceRadio.getActionCommand();
+            } else {
+                selectedItem = sourceRadio.getText();
             }
+            eventArgs = new String[]{commandIdentifier, selectedItem != null ? selectedItem.toString() : null};
+        } else if (e != null && e.getSource() instanceof JRadioButtonMenuItem) {
+            JRadioButtonMenuItem sourceRadio = (JRadioButtonMenuItem) e.getSource();
+            String commandIdentifier = getDefaultCommandIdentifier();
+
+            Object selectedItem;
+            if (sourceRadio.getActionCommand() != null) {
+                selectedItem = sourceRadio.getActionCommand();
+            } else {
+                selectedItem = sourceRadio.getText();
+            }
+            eventArgs = new String[]{commandIdentifier, selectedItem != null ? selectedItem.toString() : null};
         } else {
-            // If no event, retrieve the state of the action itself (should already be updated by Swing)
+            // If unidentified source or event, move to the next item
             T selectedItem = getSelectedItem();
             Map<T, Collection<String>> valuesByArgument = getSwitchArgumentsByValue();
-            if (selectedItem != null && valuesByArgument != null
-                    && valuesByArgument.containsKey(selectedItem)) {
+            if (selectedItem != null) {
+                int index = getIndexOf(selectedItem);
+                int nbItems = getSize();
+                int nextItemIndex = (index + 1) % nbItems;
+                T nextSelectedItem = getElementAt(nextItemIndex);
                 String commandIdentifier = getDefaultCommandIdentifier();
-                eventArgs = new String[]{commandIdentifier, valuesByArgument.get(selectedItem).iterator().next()};
+                eventArgs = new String[]{commandIdentifier, valuesByArgument.get(nextSelectedItem).iterator().next()};
             }
         }
 
         return eventArgs;
+    }
+
+    /**
+     * Returns the index-position of the specified object in the list.
+     *
+     * @param item a object to be found in the list
+     * @return an {@code int} representing the index position, where 0 is the
+     * first position. {@code -1} if not found.
+     *
+     * @since 1.4
+     */
+    public int getIndexOf(T item) {
+        ComboBoxModel<T> model = getModel();
+        if (model instanceof DefaultComboBoxModel) {
+            return ((DefaultComboBoxModel) getModel()).getIndexOf(item);
+        } else if (model != null) {
+            for (int i = 0, n = model.getSize(); i < n; i++) {
+                T currentItem = model.getElementAt(i);
+                if ((currentItem == null && item == null)
+                        || (currentItem != null && currentItem.equals(item))) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -346,7 +517,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
                  * XXX What to do...
                  * Here, we are handling the invalid argument received by 
                  * publishing an error message (which is hard coded by the way).
-                 * Even if it seem coherent with a "command line only" usage of
+                 * Even if it seems coherent with a "command line only" usage of
                  * the shell, it prevents any kind of interaction with the user,
                  * thus not allowing him to fix his error... 
                  * A solution would be to throw an exception but that would mean
@@ -608,9 +779,9 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
          * {@code ComboElementAction}
          */
         protected ComboElementAction(AbstractJssComboAction<T> parentAction, T dataItem) {
-            super(dataItem.equals(parentAction.getSelectedItem()), 
-                    dataItem.toString(), 
-                    parentAction.getDefaultShellController(), 
+            super(dataItem.equals(parentAction.getSelectedItem()),
+                    dataItem.toString(),
+                    parentAction.getDefaultShellController(),
                     new String[]{parentAction.getDefaultCommandIdentifier(), dataItem.toString()});
 
             this.parentAction = parentAction;
@@ -621,7 +792,9 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
             String[] elementIdentifiers = new String[parentIdentifiers.length];
             for (int i = 0, n = parentIdentifiers.length; i < n; i++) {
                 String parentIdentifier = parentIdentifiers[i];
-                elementIdentifiers[i] = parentIdentifier + "_" + dataItem.toString();
+                elementIdentifiers[i] = parentIdentifier
+                        + "_"
+                        + dataItem.toString();
             }
             this.identifiers = elementIdentifiers;
 
@@ -648,6 +821,12 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction implem
          */
         public final T getDataItem() {
             return dataItem;
+        }
+
+        @Override
+        protected String[] extractArgumentsFromEvent(ActionEvent e) {
+            // To prevent adding the action to the model, use default args 
+            return getDefaultArguments();
         }
 
         // #########################################################################

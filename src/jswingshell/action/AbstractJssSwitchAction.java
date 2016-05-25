@@ -6,8 +6,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Icon;
-import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JToggleButton;
 import jswingshell.IJssController;
 
 /**
@@ -26,6 +27,9 @@ import jswingshell.IJssController;
  */
 public abstract class AbstractJssSwitchAction extends AbstractJssAction {
 
+    /**
+     * A {@code Collection} of values associated to the "<em>ON</em>" status.
+     */
     protected static final Collection<String> ON_ARGUMENTS;
 
     static {
@@ -37,6 +41,9 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
         ON_ARGUMENTS = Collections.unmodifiableSet(onArguments);
     }
 
+    /**
+     * A {@code Collection} of values associated to the "<em>OFF</em>" status.
+     */
     protected static final Collection<String> OFF_ARGUMENTS;
 
     static {
@@ -89,46 +96,149 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
     protected ActionGroup group = null;
 
     // #########################################################################
+    /**
+     * Creates an {@code AbstractJssSwitchAction}.
+     *
+     * <p>
+     * No default shell or arguments are defined for this action (both set to
+     * {@code null}).</p>
+     *
+     * @see AbstractJssAction#AbstractJssAction()
+     */
     public AbstractJssSwitchAction() {
         super();
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified selected
+     * status.
+     *
+     * <p>
+     * No default shell or arguments are defined for this action (both set to
+     * {@code null}).</p>
+     *
+     * @param selected is the action selected?
+     *
+     * @see AbstractJssAction#AbstractJssAction()
+     */
     public AbstractJssSwitchAction(Boolean selected) {
         super();
         setSelected(selected);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified default
+     * shell controller and default arguments.
+     *
+     * <p>
+     * No arguments are defined for this action (set to {@code null}).</p>
+     *
+     * @param shellController the default shell controller
+     */
     public AbstractJssSwitchAction(IJssController shellController) {
         super(shellController);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified selected
+     * status, default shell controller and default arguments.
+     *
+     * <p>
+     * No arguments are defined for this action (set to {@code null}).</p>
+     *
+     * @param selected is the action selected?
+     * @param shellController the default shell controller
+     */
     public AbstractJssSwitchAction(Boolean selected, IJssController shellController) {
         super(shellController);
         setSelected(selected);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified default
+     * shell controller and default arguments.
+     *
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssSwitchAction(IJssController shellController, String... args) {
         super(shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified selected
+     * status, default shell controller and default arguments.
+     *
+     * @param selected is the action selected?
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssSwitchAction(Boolean selected, IJssController shellController, String... args) {
         super(shellController, args);
         setSelected(selected);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified name,
+     * default shell controller and default arguments.
+     *
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssSwitchAction(String name, IJssController shellController, String... args) {
         super(name, shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified selected
+     * status, name, default shell controller and default arguments.
+     *
+     * @param selected is the action selected?
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssSwitchAction(Boolean selected, String name, IJssController shellController, String... args) {
         super(name, shellController, args);
         setSelected(selected);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified name, small
+     * icon, default shell controller and default arguments.
+     *
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param icon the small icon ({@code Action.SMALL_ICON}) for the action; a
+     * value of {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssSwitchAction(String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon, shellController, args);
     }
 
+    /**
+     * Creates an {@code AbstractJssSwitchAction} with the specified selected
+     * status, name, small icon, default shell controller and default arguments.
+     *
+     * @param selected is the action selected?
+     * @param name the name ({@code Action.NAME}) for the action; a value of
+     * {@code null} is ignored
+     * @param icon the small icon ({@code Action.SMALL_ICON}) for the action; a
+     * value of {@code null} is ignored
+     * @param shellController the default shell controller
+     * @param args the default arguments for executing this action through a
+     * shell
+     */
     public AbstractJssSwitchAction(Boolean selected, String name, Icon icon, IJssController shellController, String... args) {
         super(name, icon, shellController, args);
         setSelected(selected);
@@ -203,32 +313,43 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
     protected String[] extractArgumentsFromEvent(ActionEvent e) {
         String[] eventArgs = null;
 
-        if (e != null) {
-            if (e.getSource() instanceof JCheckBox) {
-                JCheckBox sourceCombo = (JCheckBox) e.getSource();
-                String commandIdentifier = getDefaultCommandIdentifier();
-                boolean isSelected = sourceCombo.isSelected();
-                if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
-                    eventArgs = new String[]{commandIdentifier, getOnArguments().iterator().next()};
-                } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
-                    eventArgs = new String[]{commandIdentifier, getOffArguments().iterator().next()};
-                }
-            } else if (e.getSource() instanceof JCheckBoxMenuItem) {
-                JCheckBoxMenuItem sourceCombo = (JCheckBoxMenuItem) e.getSource();
-                String commandIdentifier = getDefaultCommandIdentifier();
-                boolean isSelected = sourceCombo.isSelected();
-                if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
-                    eventArgs = new String[]{commandIdentifier, getOnArguments().iterator().next()};
-                } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
-                    eventArgs = new String[]{commandIdentifier, getOffArguments().iterator().next()};
-                }
+        if (e != null && e.getSource() instanceof JToggleButton) {
+            JToggleButton sourceToggleButton = (JToggleButton) e.getSource();
+            String commandIdentifier = getDefaultCommandIdentifier();
+
+            boolean isSelected = sourceToggleButton.isSelected();
+            if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
+                eventArgs = new String[]{commandIdentifier, getOnArguments().iterator().next()};
+            } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
+                eventArgs = new String[]{commandIdentifier, getOffArguments().iterator().next()};
+            }
+        } else if (e != null && e.getSource() instanceof JCheckBoxMenuItem) {
+            JCheckBoxMenuItem sourceCheckBox = (JCheckBoxMenuItem) e.getSource();
+            String commandIdentifier = getDefaultCommandIdentifier();
+
+            boolean isSelected = sourceCheckBox.isSelected();
+            if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
+                eventArgs = new String[]{commandIdentifier, getOnArguments().iterator().next()};
+            } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
+                eventArgs = new String[]{commandIdentifier, getOffArguments().iterator().next()};
+            }
+        } else if (e != null && e.getSource() instanceof JRadioButtonMenuItem) {
+            JRadioButtonMenuItem sourceRadio = (JRadioButtonMenuItem) e.getSource();
+            String commandIdentifier = getDefaultCommandIdentifier();
+
+            // Consider the radio button as a check box (only works if action is registered in shell)
+            boolean isSelected = sourceRadio.isSelected();
+            if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
+                eventArgs = new String[]{commandIdentifier, getOnArguments().iterator().next()};
+            } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
+                eventArgs = new String[]{commandIdentifier, getOffArguments().iterator().next()};
             }
         } else {
-            // If no event, retrieve the state of the action itself (should already be updated by Swing)
+            // If unidentified source or event, switch the state of the action itself
             Boolean isActionSelected = isSelected();
             if (isActionSelected != null) {
                 String commandIdentifier = getDefaultCommandIdentifier();
-                if (isActionSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
+                if (!isActionSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
                     eventArgs = new String[]{commandIdentifier, getOnArguments().iterator().next()};
                 } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
                     eventArgs = new String[]{commandIdentifier, getOffArguments().iterator().next()};

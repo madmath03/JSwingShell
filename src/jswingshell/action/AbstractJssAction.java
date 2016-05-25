@@ -20,14 +20,15 @@ import jswingshell.IJssController;
 public abstract class AbstractJssAction extends AbstractAction implements IJssAction {
 
     /**
-     * A map of actions with their full list of identifiers stored as a 
+     * A map of actions with their full list of identifiers stored as a
      * displayable {@code String}.
      */
     protected static final Map<IJssAction, String> COMMAND_IDENTIFIERS_AS_STRING = new HashMap<>();
 
     /**
-     * Get the full list of identifiers stored as a displayable {@code String} 
+     * Get the full list of identifiers stored as a displayable {@code String}
      * of a given action.
+     *
      * @param action the action for which to retrieve the command identifiers
      * @return the full list of identifiers of the action
      */
@@ -54,11 +55,23 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
         return COMMAND_IDENTIFIERS_AS_STRING.get(action);
     }
 
+    /**
+     * Get a displayable {@code String} of arguments.
+     *
+     * @param arguments a {@code Collection} of arguments to be described
+     * @return the displayable {@code String} of arguments
+     */
     public static final String getArgumentsAsString(Collection<String> arguments) {
         Object[] args = (arguments != null ? arguments.toArray() : null);
         return getArgumentsAsString(args);
     }
 
+    /**
+     * Get a displayable {@code String} of arguments.
+     *
+     * @param arguments an {@code Array} of arguments to be described
+     * @return the displayable {@code String} of arguments
+     */
     protected static final String getArgumentsAsString(Object... arguments) {
         StringBuilder argBuilder = new StringBuilder("[ ");
 
