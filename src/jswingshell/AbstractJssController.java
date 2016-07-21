@@ -32,6 +32,18 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
     public static final String COMMAND_PARAMETER_SEPARATOR = " ";
 
     /**
+     * The arguments default enclosure character.
+     * @since 1.4.2
+     */
+    public static final char COMMAND_PARAMETER_ENCLOSURE_CHARACTER = '"';
+
+    /**
+     * The arguments default enclosure.
+     * @since 1.4.2
+     */
+    public static final String COMMAND_PARAMETER_ENCLOSURE = Character.toString(COMMAND_PARAMETER_ENCLOSURE_CHARACTER);
+
+    /**
      * Prefix used to indicate the start of command line.
      */
     private static final String COMMAND_LINE_PREFIX = "> ";
@@ -1304,16 +1316,18 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
                 int indexOfCommandEnd = commandTrimmed.indexOf(commandSeparator);
                 if (indexOfCommandEnd == -1) {
                     resetParserProperties();
-                    if (commandTrimmed.startsWith("\"") && commandTrimmed.endsWith("\"")) {
+                    if (commandTrimmed.startsWith(COMMAND_PARAMETER_ENCLOSURE) 
+                            && commandTrimmed.endsWith(COMMAND_PARAMETER_ENCLOSURE)) {
                         commandTrimmed = commandTrimmed.substring(1, commandTrimmed.length() - 1);
                     }
                     return new String[]{commandTrimmed};
                 }
 
                 String commandId;
-                if (commandTrimmed.startsWith("\"") && commandTrimmed.indexOf("\"", 1) > -1) {
-                    indexOfCommandEnd = commandTrimmed.indexOf("\"", 1);
-                    commandId = commandTrimmed.substring(1, commandTrimmed.indexOf("\"", 1));
+                if (commandTrimmed.startsWith(COMMAND_PARAMETER_ENCLOSURE) 
+                        && commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1) > -1) {
+                    indexOfCommandEnd = commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1);
+                    commandId = commandTrimmed.substring(1, commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1));
                 } else {
                     commandId = commandTrimmed.substring(0, indexOfCommandEnd);
                 }
@@ -1333,7 +1347,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter im
                             break;
 
                         // Detect double quoted parts
-                        case '"':
+                        case COMMAND_PARAMETER_ENCLOSURE_CHARACTER:
                             // Even number of backslashes?
                             if ((0x01 & countBackslashes) == 0) {
                                 countBackslashes /= 2;

@@ -4,6 +4,7 @@ import javax.swing.text.Document;
 import jswingshell.IJssController;
 
 /**
+ * A simple Shell Shell {@code TextArea} view.
  *
  * @author Mathieu Brunot
  */

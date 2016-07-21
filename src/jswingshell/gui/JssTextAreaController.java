@@ -13,6 +13,7 @@ import jswingshell.JssSimpleModel;
 import jswingshell.action.AbstractThreadedJssAction;
 
 /**
+ * A simple Shell controller for {@link JssTextArea}.
  *
  * @author Mathieu Brunot
  */
@@ -347,7 +348,7 @@ public class JssTextAreaController extends AbstractJssController {
 
     }
 
-    protected int getCommandLinePosition() {
+    public int getCommandLinePosition() {
         if (commandLineStart == -1) {
             int indexOfLastLine = getLastShellLinePosition();
             String newCommandLineStart = getNewCommandLine();
