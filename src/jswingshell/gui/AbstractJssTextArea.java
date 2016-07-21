@@ -5,6 +5,11 @@ import jswingshell.IJssController;
 import jswingshell.IJssView;
 
 /**
+ * The base for Shell {@code TextArea} view.
+ *
+ * <p>
+ * This abstract shell view includes extends Java Swing {@code TextArea} and 
+ * and provide new methods to manage shell content and command line.</p>
  *
  * @author Mathieu Brunot
  */
