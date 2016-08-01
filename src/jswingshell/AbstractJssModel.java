@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import jswingshell.action.IJssAction;
 
 /**
@@ -44,6 +46,21 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
      */
     private transient Map<String, IJssAction> actionsByCommandIdentifier;
 
+    /**
+     * Should the actions and identifiers be sorted?
+     *
+     * <p>
+     * This will define if {@link #availableActions} and
+     * {@link #actionsByCommandIdentifier} should be sorted through their
+     * natural comparison order.</p>
+     *
+     * @see #availableActions
+     * @see #actionsByCommandIdentifier
+     *
+     * @since 1.4.2
+     */
+    private final boolean sorted;
+
     // #########################################################################
     // Constructors
     /**
@@ -76,10 +93,19 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
      * @param controller the shell controller to attach to this shell model.
      */
     public AbstractJssModel(IJssController controller) {
-        super();
-        this.controller = controller;
-        this.availableActions = new HashSet<>();
-        this.actionsByCommandIdentifier = new HashMap<>();
+        this(controller, false);
+    }
+
+    /**
+     * Contruct a shell model and initializes the controller.
+     *
+     * @param controller the shell controller to attach to this shell model.
+     * @param sorted Should the actions and identifiers be sorted?
+     *
+     * @since 1.4.2
+     */
+    public AbstractJssModel(IJssController controller, boolean sorted) {
+        this(controller, 0, sorted);
     }
 
     /**
@@ -90,10 +116,30 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
      * @param initialCapacity the initial capacity for available commands.
      */
     public AbstractJssModel(IJssController controller, int initialCapacity) {
+        this(controller, initialCapacity, false);
+    }
+
+    /**
+     * Contruct a shell model and initializes the controller and the initial
+     * capacity for available commands.
+     *
+     * @param controller the shell controller to attach to this shell model.
+     * @param initialCapacity the initial capacity for available commands.
+     * @param sorted Should the actions and identifiers be sorted?
+     *
+     * @since 1.4.2
+     */
+    private AbstractJssModel(IJssController controller, int initialCapacity, boolean sorted) {
         super();
         this.controller = controller;
-        this.availableActions = new HashSet<>(initialCapacity);
-        this.actionsByCommandIdentifier = new HashMap<>(initialCapacity);
+        if (sorted) {
+            this.availableActions = new TreeSet<>();
+            this.actionsByCommandIdentifier = new TreeMap<>();
+        } else {
+            this.availableActions = new HashSet<>(initialCapacity);
+            this.actionsByCommandIdentifier = new HashMap<>(initialCapacity);
+        }
+        this.sorted = sorted;
     }
 
     /**
@@ -104,16 +150,39 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
      * @param actions the available commands.
      */
     public AbstractJssModel(IJssController controller, Collection<IJssAction> actions) {
+        this(controller, actions, false);
+    }
+
+    /**
+     * Contruct a shell model and initializes the controller and the available
+     * commands.
+     *
+     * @param controller the shell controller to attach to this shell model.
+     * @param actions the available commands.
+     * @param sorted Should the actions be sorted (natural order)?
+     *
+     * @since 1.4.2
+     */
+    public AbstractJssModel(IJssController controller, Collection<IJssAction> actions, boolean sorted) {
         super();
         this.controller = controller;
 
         if (actions != null) {
-            this.availableActions = new HashSet<>(actions);
-            this.actionsByCommandIdentifier = new HashMap<>(actions.size());
+            if (sorted) {
+                this.availableActions = new TreeSet<>(actions);
+                this.actionsByCommandIdentifier = new TreeMap<>();
+            } else {
+                this.availableActions = new HashSet<>(actions);
+                this.actionsByCommandIdentifier = new HashMap<>(actions.size());
+            }
+        } else if (sorted) {
+            this.availableActions = new TreeSet<>();
+            this.actionsByCommandIdentifier = new TreeMap<>();
         } else {
             this.availableActions = new HashSet<>();
             this.actionsByCommandIdentifier = new HashMap<>();
         }
+        this.sorted = sorted;
     }
 
     /**
@@ -130,11 +199,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
      * @see #clone()
      */
     public AbstractJssModel(AbstractJssModel anotherModel) {
-        super();
-        this.controller = anotherModel.controller;
-        this.availableActions = new HashSet<>(anotherModel.availableActions);
-        this.actionsByCommandIdentifier = new HashMap<>(anotherModel.actionsByCommandIdentifier);
-        this.actionsByCommandIdentifierInitialized = anotherModel.actionsByCommandIdentifierInitialized;
+        this(anotherModel.controller, anotherModel);
     }
 
     /**
@@ -151,8 +216,14 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
     public AbstractJssModel(IJssController anotherController, AbstractJssModel anotherModel) {
         super();
         this.controller = anotherController;
-        this.availableActions = new HashSet<>(anotherModel.availableActions);
-        this.actionsByCommandIdentifier = new HashMap<>(anotherModel.actionsByCommandIdentifier);
+        if (anotherModel.sorted) {
+            this.availableActions = new TreeSet<>(anotherModel.availableActions);
+            this.actionsByCommandIdentifier = new TreeMap<>(anotherModel.actionsByCommandIdentifier);
+        } else {
+            this.availableActions = new HashSet<>(anotherModel.availableActions);
+            this.actionsByCommandIdentifier = new HashMap<>(anotherModel.actionsByCommandIdentifier);
+        }
+        this.sorted = anotherModel.sorted;
         this.actionsByCommandIdentifierInitialized = anotherModel.actionsByCommandIdentifierInitialized;
     }
 
@@ -323,6 +394,10 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
         }
 
         return action;
+    }
+
+    protected boolean isSorted() {
+        return sorted;
     }
 
 }
