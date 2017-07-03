@@ -3,7 +3,7 @@
 
 	<groupId>com.github.madmath03</groupId>
 	<artifactId>JSwingShell</artifactId>
-	<version>1.4.2</version>
+	<version>1.4.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>JSwingShell, a Java Swing based shell framework.</description>
 
@@ -22,7 +22,7 @@
 		<url>https://github.com/madmath03/JSwingShell</url>
 		<connection>scm:git:git://github.com/madmath03/JSwingShell.git</connection>
 		<developerConnection>scm:git:git@github.com:madmath03/JSwingShell.git</developerConnection>
-		<tag>JSwingShell-1.4.2</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
