@@ -41,6 +41,10 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
     implements ComboBoxModel<T> {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = 5702115145275398454L;
+  /**
    * A map of items with their {@code Collection} of associated values.
    */
   protected transient Map<T, Collection<String>> switchArgumentsByValue = null;
@@ -91,11 +95,11 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
   /**
    * Creates an {@code AbstractJssComboAction} with the specified model for combo boxes.
    *
-   * @param aModel a model for combo boxes
+   * @param model a model for combo boxes
    */
-  public AbstractJssComboAction(ComboBoxModel<T> aModel) {
+  public AbstractJssComboAction(ComboBoxModel<T> model) {
     super();
-    this.dataModel = aModel;
+    this.dataModel = model;
   }
 
   /**
@@ -122,12 +126,12 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
    * Creates an {@code AbstractJssComboAction} with the specified model for combo boxes and default
    * shell controller.
    *
-   * @param aModel a model for combo boxes
+   * @param model a model for combo boxes
    * @param shellController the default shell controller
    */
-  public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController) {
+  public AbstractJssComboAction(ComboBoxModel<T> model, IJssController shellController) {
     super(shellController);
-    this.dataModel = aModel;
+    this.dataModel = model;
   }
 
   /**
@@ -157,14 +161,14 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
    * Creates an {@code AbstractJssComboAction} with the specified model for combo boxes, default
    * shell controller and default arguments.
    *
-   * @param aModel a model for combo boxes
+   * @param model a model for combo boxes
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssComboAction(ComboBoxModel<T> aModel, IJssController shellController,
+  public AbstractJssComboAction(ComboBoxModel<T> model, IJssController shellController,
       String... args) {
     super(shellController, args);
-    this.dataModel = aModel;
+    this.dataModel = model;
   }
 
   /**
@@ -197,15 +201,15 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
    * Creates an {@code AbstractJssComboAction} with the specified model for combo boxes, name,
    * default shell controller and default arguments.
    *
-   * @param aModel a model for combo boxes
+   * @param model a model for combo boxes
    * @param name the name ({@code Action.NAME}) for the action; a value of {@code null} is ignored
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssComboAction(ComboBoxModel<T> aModel, String name,
+  public AbstractJssComboAction(ComboBoxModel<T> model, String name,
       IJssController shellController, String... args) {
     super(name, shellController, args);
-    this.dataModel = aModel;
+    this.dataModel = model;
   }
 
   /**
@@ -244,29 +248,27 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
    * Creates an {@code AbstractJssComboAction} with the specified model for combo boxes, name, small
    * icon, default shell controller and default arguments.
    *
-   * @param aModel a model for combo boxes
+   * @param model a model for combo boxes
    * @param name the name ({@code Action.NAME}) for the action; a value of {@code null} is ignored
    * @param icon the small icon ({@code Action.SMALL_ICON}) for the action; a value of {@code null}
    *        is ignored
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssComboAction(ComboBoxModel<T> aModel, String name, Icon icon,
+  public AbstractJssComboAction(ComboBoxModel<T> model, String name, Icon icon,
       IJssController shellController, String... args) {
     super(name, icon, shellController, args);
-    this.dataModel = aModel;
+    this.dataModel = model;
   }
 
   // #########################################################################
   /**
    * Sets the data model that a {@code JComboBox} uses to obtain the list of items.
    *
-   * @param aModel the {@code ComboBoxModel} that provides the list of items
-   *
-   * @beaninfo bound: true description: Model that the combo box uses to get data to display.
+   * @param model the {@code ComboBoxModel} that provides the list of items
    */
-  public final void setModel(ComboBoxModel<T> aModel) {
-    this.dataModel = aModel;
+  public final void setModel(ComboBoxModel<T> model) {
+    this.dataModel = model;
   }
 
   /**
@@ -307,7 +309,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public T getSelectedItem() {
@@ -315,7 +317,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public int getSize() {
@@ -323,7 +325,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public T getElementAt(int index) {
@@ -331,7 +333,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void addListDataListener(ListDataListener l) {
@@ -339,7 +341,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void removeListDataListener(ListDataListener l) {
@@ -418,7 +420,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
     String[] eventArgs = null;
 
     if (e != null && e.getSource() instanceof JComboBox) {
-      JComboBox sourceCombo = (JComboBox) e.getSource();
+      JComboBox<?> sourceCombo = (JComboBox<?>) e.getSource();
       String commandIdentifier = getDefaultCommandIdentifier();
 
       Object selectedItem = sourceCombo.getSelectedItem();
@@ -478,7 +480,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
   public int getIndexOf(T item) {
     ComboBoxModel<T> model = getModel();
     if (model instanceof DefaultComboBoxModel) {
-      return ((DefaultComboBoxModel) getModel()).getIndexOf(item);
+      return ((DefaultComboBoxModel<T>) getModel()).getIndexOf(item);
     } else if (model != null) {
       for (int i = 0, n = model.getSize(); i < n; i++) {
         T currentItem = model.getElementAt(i);
@@ -729,7 +731,7 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
    *
    * <p>
    * This action is used to toggle a {@link AbstractJssComboAction} item from {@code TRUE} to
-   * {@code FALSE}. It is higly appropriate for {@code JCheckBox} and {@code JCheckBoxMenuItem} GUI
+   * {@code FALSE}. It is highly appropriate for {@code JCheckBox} and {@code JCheckBoxMenuItem} GUI
    * components.
    * </p>
    *
@@ -742,6 +744,11 @@ public abstract class AbstractJssComboAction<T> extends AbstractJssAction
    * @since 1.3
    */
   public class ComboElementAction<T> extends AbstractJssSwitchAction {
+
+    /**
+     * The {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = 5802845702713902984L;
 
     private final String[] identifiers;
 

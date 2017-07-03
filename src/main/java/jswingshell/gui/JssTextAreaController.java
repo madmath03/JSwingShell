@@ -22,6 +22,11 @@ import jswingshell.action.AbstractThreadedJssAction;
 public class JssTextAreaController extends AbstractJssController {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = -3743782600917148457L;
+
+  /**
    * Logger.
    */
   private static final Logger LOGGER = Logger.getLogger(JssTextAreaController.class.getName());
@@ -197,7 +202,7 @@ public class JssTextAreaController extends AbstractJssController {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   protected void setView(IJssView anotherView) {
@@ -217,7 +222,7 @@ public class JssTextAreaController extends AbstractJssController {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   protected void setModel(AbstractJssModel anotherModel) {

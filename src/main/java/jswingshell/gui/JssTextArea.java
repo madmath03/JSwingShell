@@ -11,6 +11,11 @@ import jswingshell.IJssController;
  */
 public class JssTextArea extends AbstractJssTextArea {
 
+  /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = 451240097578434145L;
+
   // #########################################################################
   // Constructors
   public JssTextArea() {

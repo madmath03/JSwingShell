@@ -31,6 +31,10 @@ import jswingshell.IJssController;
 public abstract class AbstractJssSwitchAction extends AbstractJssAction {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = -8963977741359183553L;
+  /**
    * A {@code Collection} of values associated to the "<em>ON</em>" status.
    */
   protected static final Collection<String> ON_ARGUMENTS;

@@ -2,8 +2,8 @@
  * The <strong>JSwingShell</strong> <em>GUI</em> components.
  *
  * <p>
- * This package contains <strong>JSwingShell</strong>
- * <abbr title="Graphical User Interface">GUI</abbr> components.
+ * This package contains <strong>JSwingShell</strong> Graphical User Interface components.
  * </p>
- */
+ * */
+
 package jswingshell.gui;

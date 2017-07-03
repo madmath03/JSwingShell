@@ -28,6 +28,10 @@ import javax.swing.text.JTextComponent;
 public class OverwriteCaret extends DefaultCaret {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = -2224790501653257810L;
+  /**
    * Logger.
    */
   private static final Logger LOGGER = Logger.getLogger(OverwriteCaret.class.getName());
@@ -51,7 +55,7 @@ public class OverwriteCaret extends DefaultCaret {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   protected synchronized void damage(Rectangle r) {
@@ -59,6 +63,7 @@ public class OverwriteCaret extends DefaultCaret {
       try {
         JTextComponent comp = getComponent();
         TextUI mapper = comp.getUI();
+
         Rectangle r2 = mapper.modelToView(comp, getDot() + 1);
         int rectangleWidth = r2.x - r.x;
         if (rectangleWidth == 0) {
@@ -72,12 +77,13 @@ public class OverwriteCaret extends DefaultCaret {
         this.width = rectangleWidth;
         this.height = r.height;
       } catch (BadLocationException e) {
+        LOGGER.log(Level.SEVERE, null, e);
       }
     }
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void paint(Graphics g) {
@@ -85,15 +91,18 @@ public class OverwriteCaret extends DefaultCaret {
       try {
         JTextComponent comp = getComponent();
         TextUI mapper = comp.getUI();
-        Rectangle r1 = mapper.modelToView(comp, getDot());
-        Rectangle r2 = mapper.modelToView(comp, getDot() + 1);
+
         g = g.create();
         g.setColor(comp.getForeground());
         g.setXORMode(comp.getBackground());
+
+        Rectangle r1 = mapper.modelToView(comp, getDot());
+        Rectangle r2 = mapper.modelToView(comp, getDot() + 1);
         int rectangleWidth = r2.x - r1.x;
         if (rectangleWidth == 0) {
           rectangleWidth = MIN_WIDTH;
         }
+
         g.fillRect(r1.x, r1.y, rectangleWidth, r1.height);
         g.dispose();
       } catch (BadLocationException e) {

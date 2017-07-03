@@ -65,6 +65,11 @@ import javax.swing.text.TextAction;
 public class OverwritableTextField extends JTextField {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = 1555562580126609099L;
+
+  /**
    * Constructs a new <code>TextField</code>. A default model is created, the initial string is
    * <code>null</code>, and the number of columns is set to 0.
    */
@@ -136,7 +141,7 @@ public class OverwritableTextField extends JTextField {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void setKeymap(Keymap map) {
@@ -159,7 +164,7 @@ public class OverwritableTextField extends JTextField {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void replaceSelection(String content) {
@@ -350,6 +355,11 @@ public class OverwritableTextField extends JTextField {
    * Insert/overwrite toggling for {@code OverwritableTextField} action.
    */
   public static class ToggleOverwriteAction extends TextAction {
+
+    /**
+     * The {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = 2349817778971816846L;
 
     ToggleOverwriteAction() {
       super(toggleOverwriteAction);

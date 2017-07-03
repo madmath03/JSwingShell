@@ -28,6 +28,11 @@ import java.util.Collections;
 public class ActionGroup implements Serializable {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = -5167756801967255818L;
+
+  /**
    * The list of actions participating in this group.
    */
   protected Collection<AbstractJssSwitchAction> actions = new ArrayList<>();
@@ -158,9 +163,7 @@ public class ActionGroup implements Serializable {
    * contained in the group.
    * </p>
    *
-   * @param newValue {@code true} to enable the actions in the group, {@code false} to disable them
-   * 
-   * @see Action#setEnabled
+   * @param newValue {@code true} to enable the actions in the group, {@code false} to disable them.
    * 
    * @since 1.4
    */

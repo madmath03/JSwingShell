@@ -30,6 +30,11 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
     implements IJssController, Serializable {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = -7353079305509305561L;
+
+  /**
    * The arguments default separator.
    */
   public static final String COMMAND_PARAMETER_SEPARATOR = " ";
@@ -208,7 +213,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   // #########################################################################
   // MVC methods
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public abstract IJssView getView();
@@ -223,7 +228,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   protected abstract void setView(IJssView anotherView);
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public abstract AbstractJssModel getModel();
@@ -359,7 +364,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   // #########################################################################
   // Shell methods
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public String getShellText() {
@@ -367,7 +372,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void setShellText(String newShellText) {
@@ -375,7 +380,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void clearShell() {
@@ -383,7 +388,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean isShellTextAreaLocked() {
@@ -391,7 +396,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void lockShellTextArea() {
@@ -399,7 +404,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void unlockShellTextArea() {
@@ -418,7 +423,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void clearCommandLine() {
@@ -426,7 +431,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean isCommandLineLocked() {
@@ -434,7 +439,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void lockCommandLine() {
@@ -442,7 +447,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void unlockCommandLine() {
@@ -461,7 +466,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public final String getCommandParameterSeparator() {
@@ -469,7 +474,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public String extractCommand() {
@@ -487,7 +492,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public int interpretCommand() {
@@ -495,7 +500,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public int interpretCommand(String command) {
@@ -543,7 +548,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public int interpret() {
@@ -600,7 +605,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public synchronized boolean publish(PublicationLevel level, String message) {
@@ -615,7 +620,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public PublicationLevel getPublicationLevel() {
@@ -623,7 +628,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void setPublicationLevel(PublicationLevel level) {
@@ -631,7 +636,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public IJssAction getCurrentAction() {
@@ -639,7 +644,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public List<AbstractThreadedJssAction> getActionsInProgress() {
@@ -693,7 +698,7 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public IJssAction getActionForCommandIdentifier(String commandIdentifier) {
@@ -729,6 +734,10 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    */
   public static class CommandHistory implements Serializable {
 
+    /**
+     * The {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = 7741475935363356012L;
     /**
      * Default value for the duplication mode.
      */
@@ -884,12 +893,12 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
             && this.commandBuffer.size() >= getMaximumSizeAllowed()) {
           // Remove "oldest" element to make some place
           if (oldCommandBuffer instanceof List) {
-            List localCommandBuffer = ((List) oldCommandBuffer);
+            List<String> localCommandBuffer = ((List<String>) oldCommandBuffer);
             while (localCommandBuffer.size() >= getMaximumSizeAllowed()) {
               localCommandBuffer.remove(0);
             }
           } else if (oldCommandBuffer instanceof NavigableSet) {
-            NavigableSet localCommandBuffer = ((NavigableSet) oldCommandBuffer);
+            NavigableSet<String> localCommandBuffer = ((NavigableSet<String>) oldCommandBuffer);
             while (localCommandBuffer.size() >= getMaximumSizeAllowed()) {
               localCommandBuffer.pollFirst();
             }
@@ -1018,12 +1027,12 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
       if (!isSizeUnlimited() && getCommandBuffer().size() >= getMaximumSizeAllowed()) {
         // Remove "oldest" element to make some place
         if (getCommandBuffer() instanceof List) {
-          List localCommandBuffer = ((List) getCommandBuffer());
+          List<String> localCommandBuffer = ((List<String>) getCommandBuffer());
           while (localCommandBuffer.size() >= getMaximumSizeAllowed()) {
             localCommandBuffer.remove(0);
           }
         } else if (getCommandBuffer() instanceof NavigableSet) {
-          NavigableSet localCommandBuffer = ((NavigableSet) getCommandBuffer());
+          NavigableSet<String> localCommandBuffer = ((NavigableSet<String>) getCommandBuffer());
           while (localCommandBuffer.size() >= getMaximumSizeAllowed()) {
             localCommandBuffer.pollFirst();
           }
@@ -1166,6 +1175,11 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    * @see "http://www.daviddeley.com/autohotkey/parameters/parameters.htm#WINARGV"
    */
   public static class CommandLineParser implements Serializable {
+
+    /**
+     * The {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = 3630662755467559574L;
 
     private transient StringBuilder parameterStringBuilder = null;
 

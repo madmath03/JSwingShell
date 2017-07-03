@@ -23,6 +23,10 @@ import jswingshell.IJssController;
 public abstract class AbstractJssAction extends AbstractAction implements IJssAction {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = 6767042370184801343L;
+  /**
    * A map of actions with their full list of identifiers stored as a displayable {@code String}.
    */
   protected static final Map<IJssAction, String> COMMAND_IDENTIFIERS_AS_STRING = new HashMap<>();
@@ -200,7 +204,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
 
   // #########################################################################
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public String getDefaultCommandIdentifier() {
@@ -212,13 +216,13 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public abstract String[] getCommandIdentifiers();
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public String getCommandIdentifiersAsString() {
@@ -226,7 +230,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public String getHelp() {
@@ -234,7 +238,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public int run() {
@@ -242,7 +246,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public int run(String... args) {
@@ -250,7 +254,7 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public abstract int run(IJssController shellController, String... args);

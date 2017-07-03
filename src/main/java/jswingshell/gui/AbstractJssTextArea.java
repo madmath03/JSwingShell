@@ -18,6 +18,11 @@ import jswingshell.IJssView;
 public abstract class AbstractJssTextArea extends jswingshell.gui.component.OverwritableTextArea
     implements IJssView {
 
+  /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = 3289633118955497781L;
+
   private IJssController controller;
 
   // #########################################################################

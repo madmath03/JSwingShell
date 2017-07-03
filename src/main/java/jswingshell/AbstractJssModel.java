@@ -24,6 +24,11 @@ import jswingshell.action.IJssAction;
 public abstract class AbstractJssModel implements IJssModel, Serializable {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = -1964983682577371623L;
+
+  /**
    * The reference to the shell controller.
    */
   private transient IJssController controller;
@@ -66,7 +71,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   // #########################################################################
   // Constructors
   /**
-   * Contruct a shell model with no controller.
+   * Construct a shell model with no controller.
    *
    * @see #setController(jswingshell.IJssController)
    *
@@ -77,7 +82,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a shell model, with no controller, and the available commands.
+   * Construct a shell model, with no controller, and the available commands.
    *
    * @param actions the available commands.
    *
@@ -90,7 +95,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a shell model and initializes the controller.
+   * Construct a shell model and initializes the controller.
    *
    * @param controller the shell controller to attach to this shell model.
    */
@@ -99,7 +104,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a shell model and initializes the controller.
+   * Construct a shell model and initializes the controller.
    *
    * @param controller the shell controller to attach to this shell model.
    * @param sorted Should the actions and identifiers be sorted?
@@ -111,7 +116,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a shell model and initializes the controller and the initial capacity for available
+   * Construct a shell model and initializes the controller and the initial capacity for available
    * commands.
    *
    * @param controller the shell controller to attach to this shell model.
@@ -122,7 +127,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a shell model and initializes the controller and the initial capacity for available
+   * Construct a shell model and initializes the controller and the initial capacity for available
    * commands.
    *
    * @param controller the shell controller to attach to this shell model.
@@ -145,7 +150,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a shell model and initializes the controller and the available commands.
+   * Construct a shell model and initializes the controller and the available commands.
    *
    * @param controller the shell controller to attach to this shell model.
    * @param actions the available commands.
@@ -155,7 +160,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a shell model and initializes the controller and the available commands.
+   * Construct a shell model and initializes the controller and the available commands.
    *
    * @param controller the shell controller to attach to this shell model.
    * @param actions the available commands.
@@ -187,7 +192,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a copy of a shell model.
+   * Construct a copy of a shell model.
    *
    * <p>
    * This will create a copy of the model's available actions and attach the new model to the same
@@ -204,7 +209,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * Contruct a copy of a shell model and attach it to a different controller.
+   * Construct a copy of a shell model and attach it to a different controller.
    *
    * <p>
    * This will create a copy of the model's available actions and attach the new model to the given
@@ -258,7 +263,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void clear() {
@@ -268,7 +273,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean add(IJssAction action) {
@@ -278,7 +283,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean addAll(Collection<? extends IJssAction> actions) {
@@ -288,7 +293,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean remove(IJssAction action) {
@@ -298,7 +303,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean removeAll(Collection<? extends IJssAction> actions) {
@@ -308,7 +313,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean contains(IJssAction action) {
@@ -316,7 +321,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean containsAll(Collection<? extends IJssAction> actions) {
@@ -324,7 +329,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean retainAll(Collection<? extends IJssAction> actions) {
@@ -332,7 +337,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public boolean isEmpty() {
@@ -340,7 +345,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public int size() {
@@ -383,7 +388,7 @@ public abstract class AbstractJssModel implements IJssModel, Serializable {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public IJssAction getActionForCommandIdentifier(String commandIdentifier) {

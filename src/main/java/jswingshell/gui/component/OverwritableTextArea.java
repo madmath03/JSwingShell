@@ -65,6 +65,11 @@ import javax.swing.text.TextAction;
 public class OverwritableTextArea extends JTextArea {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = 5442736514800811078L;
+
+  /**
    * Constructs a new OverwritableTextArea. A default model is set, the initial string is null, and
    * rows/columns are set to 0.
    */
@@ -143,7 +148,7 @@ public class OverwritableTextArea extends JTextArea {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void setKeymap(Keymap map) {
@@ -166,7 +171,7 @@ public class OverwritableTextArea extends JTextArea {
   }
 
   /**
-   * {@inheritDoc }
+   * {@inheritDoc }.
    */
   @Override
   public void replaceSelection(String content) {
@@ -356,6 +361,11 @@ public class OverwritableTextArea extends JTextArea {
    * Insert/overwrite toggling for {@code OverwritableTextArea} action.
    */
   public static class ToggleOverwriteAction extends TextAction {
+
+    /**
+     * The {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = -7950520284285958708L;
 
     ToggleOverwriteAction() {
       super(toggleOverwriteAction);

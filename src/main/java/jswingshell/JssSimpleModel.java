@@ -12,7 +12,12 @@ import jswingshell.action.IJssAction;
 public class JssSimpleModel extends AbstractJssModel {
 
   /**
-   * Contruct a shell model with no controller.
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = -1068968720410737151L;
+
+  /**
+   * Construct a shell model with no controller.
    * 
    * @see #setController(jswingshell.IJssController)
    * @see AbstractJssModel#AbstractJssModel()
@@ -24,7 +29,7 @@ public class JssSimpleModel extends AbstractJssModel {
   }
 
   /**
-   * Contruct a shell model, with no controller, and the available commands.
+   * Construct a shell model, with no controller, and the available commands.
    *
    * @param actions the available commands.
    *
@@ -37,7 +42,7 @@ public class JssSimpleModel extends AbstractJssModel {
   }
 
   /**
-   * Contruct a shell model and initializes the controller.
+   * Construct a shell model and initializes the controller.
    *
    * @param controller the shell controller to attach to this shell model.
    *
@@ -48,7 +53,7 @@ public class JssSimpleModel extends AbstractJssModel {
   }
 
   /**
-   * Contruct a shell model and initializes the controller and the initial capacity for available
+   * Construct a shell model and initializes the controller and the initial capacity for available
    * commands.
    *
    * @param controller the shell controller to attach to this shell model.
@@ -61,7 +66,7 @@ public class JssSimpleModel extends AbstractJssModel {
   }
 
   /**
-   * Contruct a shell model and initializes the controller and the available commands.
+   * Construct a shell model and initializes the controller and the available commands.
    *
    * @param controller the shell controller to attach to this shell model.
    * @param actions the available commands.
@@ -73,7 +78,7 @@ public class JssSimpleModel extends AbstractJssModel {
   }
 
   /**
-   * Contruct a copy of a shell model.
+   * Construct a copy of a shell model.
    *
    * <p>
    * This will create a copy of the model's available actions and attach the new model to the same
@@ -90,7 +95,7 @@ public class JssSimpleModel extends AbstractJssModel {
   }
 
   /**
-   * Contruct a copy of a shell model and attach it to a different controller.
+   * Construct a copy of a shell model and attach it to a different controller.
    *
    * @param anotherModel the shell model to copy.
    * @param anotherController the shell controller to attach to this shell model.

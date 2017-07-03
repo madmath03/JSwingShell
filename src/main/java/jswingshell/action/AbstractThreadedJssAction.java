@@ -22,6 +22,10 @@ import jswingshell.IJssController;
 public abstract class AbstractThreadedJssAction extends AbstractJssAction {
 
   /**
+   * The {@code serialVersionUID}.
+   */
+  private static final long serialVersionUID = 6950102197875624925L;
+  /**
    * List of all currently active threads of this action.
    *
    * @since 1.4
@@ -271,7 +275,7 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
     }
 
     /**
-     * {@inheritDoc }
+     * {@inheritDoc }.
      */
     @Override
     protected void process(List<JssActionWorkerChunk> chunks) {
@@ -288,7 +292,7 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
     }
 
     /**
-     * {@inheritDoc }
+     * {@inheritDoc }.
      */
     @Override
     protected void done() {
