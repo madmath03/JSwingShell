@@ -151,7 +151,7 @@
 					<artifactId>maven-site-plugin</artifactId>
 					<version>${maven.site.version}</version>
 					<configuration>
-						<locales>fr</locales>
+						<skipDeploy>true</skipDeploy>
 					</configuration>
 				</plugin>
 				<plugin>
