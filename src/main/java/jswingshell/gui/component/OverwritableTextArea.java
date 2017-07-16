@@ -108,7 +108,8 @@ public class OverwritableTextArea extends JTextArea {
    * @param columns the number of columns &gt;= 0
    * @exception IllegalArgumentException if the rows or columns arguments are negative.
    */
-  public OverwritableTextArea(String text, int rows, int columns) throws IllegalArgumentException {
+  public OverwritableTextArea(String text, int rows, int columns)
+      throws IllegalArgumentException {
     this(null, text, rows, columns);
   }
 
@@ -132,7 +133,8 @@ public class OverwritableTextArea extends JTextArea {
    * @param columns the number of columns &gt;= 0
    * @exception IllegalArgumentException if the rows or columns arguments are negative.
    */
-  public OverwritableTextArea(Document doc, String text, int rows, int columns) {
+  public OverwritableTextArea(Document doc, String text, int rows,
+      int columns) {
     super(doc, text, rows, columns);
 
     // Initialize insert caret to the default caret of the parent class
@@ -351,10 +353,12 @@ public class OverwritableTextArea extends JTextArea {
 
   protected static final String keymapName = "OverwriteMap";
 
-  protected final static Action[] defaultActions = {new ToggleOverwriteAction()};
+  protected final static Action[] defaultActions =
+      {new ToggleOverwriteAction()};
 
   protected static JTextComponent.KeyBinding[] bindings =
-      {new JTextComponent.KeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0),
+      {new JTextComponent.KeyBinding(
+          KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0),
           toggleOverwriteAction)};
 
   /**
@@ -373,7 +377,8 @@ public class OverwritableTextArea extends JTextArea {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-      OverwritableTextArea.setOverwriting(!OverwritableTextArea.isOverwriting());
+      OverwritableTextArea
+          .setOverwriting(!OverwritableTextArea.isOverwriting());
       JTextComponent target = getFocusedComponent();
       if (target instanceof OverwritableTextArea) {
         OverwritableTextArea field = (OverwritableTextArea) target;

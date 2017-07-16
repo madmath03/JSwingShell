@@ -29,7 +29,8 @@ public class JssTextAreaController extends AbstractJssController {
   /**
    * Logger.
    */
-  private static final Logger LOGGER = Logger.getLogger(JssTextAreaController.class.getName());
+  private static final Logger LOGGER =
+      Logger.getLogger(JssTextAreaController.class.getName());
 
   /**
    * The default end of line.
@@ -49,7 +50,8 @@ public class JssTextAreaController extends AbstractJssController {
     try {
       eol = System.getProperty("line.separator", EOL1);
     } catch (SecurityException e) {
-      LOGGER.log(Level.SEVERE, "Could not retrieve the system line separator: {0}", e.getMessage());
+      LOGGER.log(Level.SEVERE,
+          "Could not retrieve the system line separator: {0}", e.getMessage());
       eol = EOL1;
     } finally {
       EOL2 = eol;
@@ -66,7 +68,8 @@ public class JssTextAreaController extends AbstractJssController {
    *
    * @since 1.4
    */
-  protected static final Font DEFAULT_FONT = new Font("LucidaSans", Font.BOLD, 11);
+  protected static final Font DEFAULT_FONT =
+      new Font("LucidaSans", Font.BOLD, 11);
 
   private transient JssTextArea view;
 
@@ -120,7 +123,8 @@ public class JssTextAreaController extends AbstractJssController {
     initView();
   }
 
-  public JssTextAreaController(Document doc, String text, int rows, int columns) {
+  public JssTextAreaController(Document doc, String text, int rows,
+      int columns) {
     super();
     this.view = new JssTextArea(this, doc, text, rows, columns);
     this.model = new JssSimpleModel(this);
@@ -148,7 +152,8 @@ public class JssTextAreaController extends AbstractJssController {
     initView();
   }
 
-  public JssTextAreaController(JssTextArea anotherView, JssSimpleModel anotherModel) {
+  public JssTextAreaController(JssTextArea anotherView,
+      JssSimpleModel anotherModel) {
     super();
     this.view = anotherView;
     this.model = anotherModel;
@@ -162,14 +167,16 @@ public class JssTextAreaController extends AbstractJssController {
     initView();
   }
 
-  public JssTextAreaController(JssTextAreaController anotherController, String text) {
+  public JssTextAreaController(JssTextAreaController anotherController,
+      String text) {
     super();
     this.view = new JssTextArea(this, text);
     this.model = new JssSimpleModel(this, anotherController.model);
     initView();
   }
 
-  public JssTextAreaController(JssTextAreaController anotherController, Document doc) {
+  public JssTextAreaController(JssTextAreaController anotherController,
+      Document doc) {
     super();
     this.view = new JssTextArea(this, doc);
     this.model = new JssSimpleModel(this, anotherController.model);
@@ -276,7 +283,8 @@ public class JssTextAreaController extends AbstractJssController {
       shellLineStart = -1;
     } else if (indexOfLastShellLine > indexOfLastLine) {
       // This case should never happen!!
-      LOGGER.severe("Something went wrong: we could not find the last shell line!!");
+      LOGGER.severe(
+          "Something went wrong: we could not find the last shell line!!");
       shellLineStart = -1;
     } else {
       shellLineStart = indexOfLastShellLine;
@@ -417,8 +425,10 @@ public class JssTextAreaController extends AbstractJssController {
     // Ctrl+K shall kill every thread of the current action running in this shell
     if (getCurrentAction() instanceof AbstractThreadedJssAction
         && (evt.getKeyCode() == KeyEvent.VK_K
-            && ((KeyEvent.CTRL_MASK | KeyEvent.CTRL_DOWN_MASK) & evt.getModifiers()) != 0)) {
-      AbstractThreadedJssAction currentAction = (AbstractThreadedJssAction) getCurrentAction();
+            && ((KeyEvent.CTRL_MASK | KeyEvent.CTRL_DOWN_MASK)
+                & evt.getModifiers()) != 0)) {
+      AbstractThreadedJssAction currentAction =
+          (AbstractThreadedJssAction) getCurrentAction();
       currentAction.cancel(this, true);
       this.removeEndedAction(currentAction);
       return;
@@ -438,7 +448,8 @@ public class JssTextAreaController extends AbstractJssController {
 
       case KeyEvent.VK_UP:
       case KeyEvent.VK_DOWN:
-        if (((KeyEvent.SHIFT_MASK | KeyEvent.SHIFT_DOWN_MASK) & evt.getModifiers()) != 0) {
+        if (((KeyEvent.SHIFT_MASK | KeyEvent.SHIFT_DOWN_MASK)
+            & evt.getModifiers()) != 0) {
           // Do not overwrite behavior if SHIFT key applied
           break;
         } else {
@@ -466,7 +477,8 @@ public class JssTextAreaController extends AbstractJssController {
         int startOfCommandfLine = getCommandLinePosition();
         // If we are inside the command line, go to command line start
         if (getCaretPosition() >= startOfCommandfLine) {
-          if (((KeyEvent.SHIFT_MASK | KeyEvent.SHIFT_DOWN_MASK) & evt.getModifiers()) == 0) {
+          if (((KeyEvent.SHIFT_MASK | KeyEvent.SHIFT_DOWN_MASK)
+              & evt.getModifiers()) == 0) {
             setCaretPosition(startOfCommandfLine);
           } else {
             moveCaretPosition(startOfCommandfLine);
@@ -486,7 +498,8 @@ public class JssTextAreaController extends AbstractJssController {
       case KeyEvent.VK_BACK_SPACE: {
         // Make sure the shell line itself is never compromised
         int startOfCommandfLine = getCommandLinePosition();
-        if (getView().getJShellTextArea().getSelectionStart() < startOfCommandfLine) {
+        if (getView().getJShellTextArea()
+            .getSelectionStart() < startOfCommandfLine) {
           getView().getJShellTextArea().setSelectionStart(startOfCommandfLine);
         }
         if (getView().getJShellTextArea().getSelectedText() == null
@@ -507,8 +520,9 @@ public class JssTextAreaController extends AbstractJssController {
       default:
         // If any mask different than Alt, AltGr or Shift in progress, let the event continue
         if (evt.getModifiers() != 0
-            && ((KeyEvent.ALT_GRAPH_MASK | KeyEvent.ALT_GRAPH_DOWN_MASK | KeyEvent.ALT_MASK
-                | KeyEvent.ALT_DOWN_MASK | KeyEvent.SHIFT_MASK | KeyEvent.SHIFT_DOWN_MASK)
+            && ((KeyEvent.ALT_GRAPH_MASK | KeyEvent.ALT_GRAPH_DOWN_MASK
+                | KeyEvent.ALT_MASK | KeyEvent.ALT_DOWN_MASK
+                | KeyEvent.SHIFT_MASK | KeyEvent.SHIFT_DOWN_MASK)
                 & evt.getModifiers()) == 0) {
           break;
         } else {
@@ -526,7 +540,8 @@ public class JssTextAreaController extends AbstractJssController {
     // Make sure the shell line itself is never compromised
     int startOfCommandfLine = getCommandLinePosition();
     if (getView().getJShellTextArea().getSelectionStart() < startOfCommandfLine
-        && getView().getJShellTextArea().getSelectionEnd() > startOfCommandfLine) {
+        && getView().getJShellTextArea()
+            .getSelectionEnd() > startOfCommandfLine) {
       getView().getJShellTextArea().setSelectionStart(startOfCommandfLine);
     } else if (getCaretPosition() < startOfCommandfLine) {
       setCaretToEndOfDocument();

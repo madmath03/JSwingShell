@@ -73,7 +73,8 @@ public class JssSimpleModel extends AbstractJssModel {
    *
    * @see AbstractJssModel#AbstractJssModel(jswingshell.IJssController, java.util.Collection)
    */
-  public JssSimpleModel(IJssController controller, Collection<IJssAction> actions) {
+  public JssSimpleModel(IJssController controller,
+      Collection<IJssAction> actions) {
     super(controller, actions);
   }
 
@@ -103,7 +104,8 @@ public class JssSimpleModel extends AbstractJssModel {
    * @see AbstractJssModel#AbstractJssModel(jswingshell.IJssController,
    *      jswingshell.AbstractJssModel)
    */
-  public JssSimpleModel(IJssController anotherController, JssSimpleModel anotherModel) {
+  public JssSimpleModel(IJssController anotherController,
+      JssSimpleModel anotherModel) {
     super(anotherController, anotherModel);
   }
 

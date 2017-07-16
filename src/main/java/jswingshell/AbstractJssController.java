@@ -129,14 +129,16 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    *
    * @since 1.4
    */
-  private transient List<AbstractThreadedJssAction> actionsInProgress = new ArrayList<>();
+  private transient List<AbstractThreadedJssAction> actionsInProgress =
+      new ArrayList<>();
 
   /**
    * The list of property change listeners for the action(s) currently in progress.
    *
    * @since 1.4
    */
-  private transient List<PropertyChangeListener> actionsPropertyChangeListeners = new ArrayList<>();
+  private transient List<PropertyChangeListener> actionsPropertyChangeListeners =
+      new ArrayList<>();
 
   // #########################################################################
   // Constructors
@@ -144,7 +146,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    * Default constructor.
    */
   public AbstractJssController() {
-    this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED, CommandHistory.DEFAULT_DUPLICATION_ALLOWED,
+    this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED,
+        CommandHistory.DEFAULT_DUPLICATION_ALLOWED,
         CommandHistory.DEFAULT_SIZE_UNLIMITED, DEFAULT_LEVEL);
   }
 
@@ -154,7 +157,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    * @param level the shell's publication level.
    */
   public AbstractJssController(PublicationLevel level) {
-    this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED, CommandHistory.DEFAULT_DUPLICATION_ALLOWED,
+    this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED,
+        CommandHistory.DEFAULT_DUPLICATION_ALLOWED,
         CommandHistory.DEFAULT_SIZE_UNLIMITED, level);
   }
 
@@ -166,8 +170,10 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    * @throws IllegalArgumentException if there is no publication level with the specified name
    */
   public AbstractJssController(String levelName) {
-    this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED, CommandHistory.DEFAULT_DUPLICATION_ALLOWED,
-        CommandHistory.DEFAULT_SIZE_UNLIMITED, PublicationLevel.valueOf(levelName));
+    this(CommandHistory.DEFAULT_MAXIMUM_SIZE_ALLOWED,
+        CommandHistory.DEFAULT_DUPLICATION_ALLOWED,
+        CommandHistory.DEFAULT_SIZE_UNLIMITED,
+        PublicationLevel.valueOf(levelName));
   }
 
   /**
@@ -188,9 +194,10 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    * @param duplicationAllowed Is duplication allowed in the command history?
    * @param sizeUnlimited Is the command history's size unlimited?
    */
-  public AbstractJssController(int commandHistoryCapacity, boolean duplicationAllowed,
-      boolean sizeUnlimited) {
-    this(commandHistoryCapacity, duplicationAllowed, duplicationAllowed, DEFAULT_LEVEL);
+  public AbstractJssController(int commandHistoryCapacity,
+      boolean duplicationAllowed, boolean sizeUnlimited) {
+    this(commandHistoryCapacity, duplicationAllowed, duplicationAllowed,
+        DEFAULT_LEVEL);
   }
 
   /**
@@ -202,10 +209,11 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
    * @param sizeUnlimited Is the command history's size unlimited?
    * @param level the shell's publication level.
    */
-  public AbstractJssController(int commandHistoryCapacity, boolean duplicationAllowed,
-      boolean sizeUnlimited, PublicationLevel level) {
-    this.commandHistory =
-        new CommandHistory(commandHistoryCapacity, duplicationAllowed, sizeUnlimited);
+  public AbstractJssController(int commandHistoryCapacity,
+      boolean duplicationAllowed, boolean sizeUnlimited,
+      PublicationLevel level) {
+    this.commandHistory = new CommandHistory(commandHistoryCapacity,
+        duplicationAllowed, sizeUnlimited);
     this.commandLineParser = new CommandLineParser();
     this.level = level;
   }
@@ -524,7 +532,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
     String[] args = extractCommandParameters(command);
 
     if (args == null || args.length == 0) {
-      publish(PublicationLevel.ERROR, "No command and/or arguments found: " + command);
+      publish(PublicationLevel.ERROR,
+          "No command and/or arguments found: " + command);
       commandReturnStatus = COMMAND_EMPTY_STATUS;
     } else {
       // Store the command in history and reset position
@@ -568,7 +577,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
         // Do not add command line for actions still in progress
         // But store the action for later thread management
         if (currentAction instanceof AbstractThreadedJssAction) {
-          AbstractThreadedJssAction threadedAction = (AbstractThreadedJssAction) currentAction;
+          AbstractThreadedJssAction threadedAction =
+              (AbstractThreadedJssAction) currentAction;
           actionsInProgress.add(threadedAction);
           for (final AbstractThreadedJssAction.AbstractJssActionWorker worker : threadedAction
               .getActiveWorkers()) {
@@ -582,7 +592,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
                       && AbstractThreadedJssAction.AbstractJssActionWorker.StateValue.DONE == evt
                           .getNewValue()) {
                     // Remove action from the "in progress" list
-                    AbstractJssController.this.removeEndedAction(worker.getParentAction());
+                    AbstractJssController.this
+                        .removeEndedAction(worker.getParentAction());
                     AbstractJssController.this.addNewCommandLine();
                     AbstractJssController.this.unlockCommandLine();
                   }
@@ -667,11 +678,13 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
     }
   }
 
-  public synchronized void addPropertyChangeListener(PropertyChangeListener listener) {
+  public synchronized void addPropertyChangeListener(
+      PropertyChangeListener listener) {
     actionsPropertyChangeListeners.add(listener);
   }
 
-  public synchronized void removePropertyChangeListener(PropertyChangeListener listener) {
+  public synchronized void removePropertyChangeListener(
+      PropertyChangeListener listener) {
     actionsPropertyChangeListeners.remove(listener);
   }
 
@@ -769,7 +782,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
      * Default constructor for a command history.
      */
     public CommandHistory() {
-      this(DEFAULT_MAXIMUM_SIZE_ALLOWED, DEFAULT_DUPLICATION_ALLOWED, DEFAULT_SIZE_UNLIMITED);
+      this(DEFAULT_MAXIMUM_SIZE_ALLOWED, DEFAULT_DUPLICATION_ALLOWED,
+          DEFAULT_SIZE_UNLIMITED);
     }
 
     /**
@@ -778,7 +792,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
      * @param commandHistoryCapacity Command history capacity.
      */
     public CommandHistory(int commandHistoryCapacity) {
-      this(commandHistoryCapacity, DEFAULT_DUPLICATION_ALLOWED, DEFAULT_SIZE_UNLIMITED);
+      this(commandHistoryCapacity, DEFAULT_DUPLICATION_ALLOWED,
+          DEFAULT_SIZE_UNLIMITED);
     }
 
     /**
@@ -793,8 +808,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
      *
      * @throws IllegalArgumentException if {@code maximumSizeAllowed} is negative.
      */
-    public CommandHistory(int commandHistoryCapacity, boolean duplicationAllowed,
-        boolean sizeUnlimited) {
+    public CommandHistory(int commandHistoryCapacity,
+        boolean duplicationAllowed, boolean sizeUnlimited) {
       if (commandHistoryCapacity < 0) {
         throw new IllegalArgumentException(
             "The maximum size allowed for the command history cannot be negative.");
@@ -898,7 +913,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
               localCommandBuffer.remove(0);
             }
           } else if (oldCommandBuffer instanceof NavigableSet) {
-            NavigableSet<String> localCommandBuffer = ((NavigableSet<String>) oldCommandBuffer);
+            NavigableSet<String> localCommandBuffer =
+                ((NavigableSet<String>) oldCommandBuffer);
             while (localCommandBuffer.size() >= getMaximumSizeAllowed()) {
               localCommandBuffer.pollFirst();
             }
@@ -1024,7 +1040,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
       }
 
       // Should we remove commands?
-      if (!isSizeUnlimited() && getCommandBuffer().size() >= getMaximumSizeAllowed()) {
+      if (!isSizeUnlimited()
+          && getCommandBuffer().size() >= getMaximumSizeAllowed()) {
         // Remove "oldest" element to make some place
         if (getCommandBuffer() instanceof List) {
           List<String> localCommandBuffer = ((List<String>) getCommandBuffer());
@@ -1032,7 +1049,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
             localCommandBuffer.remove(0);
           }
         } else if (getCommandBuffer() instanceof NavigableSet) {
-          NavigableSet<String> localCommandBuffer = ((NavigableSet<String>) getCommandBuffer());
+          NavigableSet<String> localCommandBuffer =
+              ((NavigableSet<String>) getCommandBuffer());
           while (localCommandBuffer.size() >= getMaximumSizeAllowed()) {
             localCommandBuffer.pollFirst();
           }
@@ -1089,7 +1107,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
       if (getCommandBuffer() != null && getCurrentHistoryPosition() >= 0
           && getCurrentHistoryPosition() < getCommandBuffer().size()) {
         if (getCommandBuffer() instanceof List) {
-          return ((List<String>) getCommandBuffer()).get(getCurrentHistoryPosition());
+          return ((List<String>) getCommandBuffer())
+              .get(getCurrentHistoryPosition());
         } else if (getCommandBuffer() instanceof NavigableSet) {
           return (String) ((NavigableSet<String>) getCommandBuffer())
               .toArray()[getCurrentHistoryPosition()];
@@ -1132,7 +1151,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
      */
     public String next() {
       int nextHistoryPosition = getCurrentHistoryPosition() + 1;
-      if (getCommandBuffer() != null && getCurrentHistoryPosition() < getCommandBuffer().size()) {
+      if (getCommandBuffer() != null
+          && getCurrentHistoryPosition() < getCommandBuffer().size()) {
         currentHistoryPosition = nextHistoryPosition;
       }
       return getCurrent();
@@ -1308,7 +1328,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
         initParserProperties(commandLine);
 
         // Parse off parameter 0 (the action id)
-        String commandSeparator = AbstractJssController.COMMAND_PARAMETER_SEPARATOR;
+        String commandSeparator =
+            AbstractJssController.COMMAND_PARAMETER_SEPARATOR;
         String commandTrimmed = commandLine.trim();
 
         int indexOfCommandEnd = commandTrimmed.indexOf(commandSeparator);
@@ -1316,7 +1337,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
           resetParserProperties();
           if (commandTrimmed.startsWith(COMMAND_PARAMETER_ENCLOSURE)
               && commandTrimmed.endsWith(COMMAND_PARAMETER_ENCLOSURE)) {
-            commandTrimmed = commandTrimmed.substring(1, commandTrimmed.length() - 1);
+            commandTrimmed =
+                commandTrimmed.substring(1, commandTrimmed.length() - 1);
           }
           return new String[] {commandTrimmed};
         }
@@ -1324,9 +1346,10 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
         String commandId;
         if (commandTrimmed.startsWith(COMMAND_PARAMETER_ENCLOSURE)
             && commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1) > -1) {
-          indexOfCommandEnd = commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1);
-          commandId =
-              commandTrimmed.substring(1, commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1));
+          indexOfCommandEnd =
+              commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1);
+          commandId = commandTrimmed.substring(1,
+              commandTrimmed.indexOf(COMMAND_PARAMETER_ENCLOSURE, 1));
         } else {
           commandId = commandTrimmed.substring(0, indexOfCommandEnd);
         }
@@ -1334,8 +1357,8 @@ public abstract class AbstractJssController extends java.awt.event.KeyAdapter
         moveToNextParameter();
 
         // Parse off next parameters
-        String restOfTheCommandLine =
-            commandTrimmed.substring(indexOfCommandEnd + commandSeparator.length());
+        String restOfTheCommandLine = commandTrimmed
+            .substring(indexOfCommandEnd + commandSeparator.length());
 
         for (int i = 0, n = restOfTheCommandLine.length(); i < n; i++) {
           char c = restOfTheCommandLine.charAt(i);

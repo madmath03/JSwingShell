@@ -308,7 +308,8 @@ public class AbstractJssComboActionTest {
   public void testGetInnerElementActions() {
     System.out.println("getInnerElementActions");
     AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-    Collection<AbstractJssComboAction<String>.ComboElementAction<String>> notExpResult = null;
+    Collection<AbstractJssComboAction<String>.ComboElementAction<String>> notExpResult =
+        null;
     Collection<AbstractJssComboAction<String>.ComboElementAction<String>> result =
         instance.getInnerElementActions();
     assertNotEquals(notExpResult, result);
@@ -333,7 +334,8 @@ public class AbstractJssComboActionTest {
   public void testInitInnerElements() {
     System.out.println("initInnerElements");
     AbstractJssComboAction instance = new AbstractJssComboActionImpl();
-    Collection<AbstractJssComboAction<String>.ComboElementAction<String>> notExpResult = null;
+    Collection<AbstractJssComboAction<String>.ComboElementAction<String>> notExpResult =
+        null;
     Collection<AbstractJssComboAction<String>.ComboElementAction<String>> result =
         instance.initInnerElements();
     assertNotEquals(notExpResult, result);
@@ -349,9 +351,11 @@ public class AbstractJssComboActionTest {
     instance.resetInnerElements();
   }
 
-  public class AbstractJssComboActionImpl extends AbstractJssComboAction<String> {
+  public class AbstractJssComboActionImpl
+      extends AbstractJssComboAction<String> {
 
-    public boolean doSwitch(IJssController shellController, String switchValue) {
+    public boolean doSwitch(IJssController shellController,
+        String switchValue) {
       return false;
     }
 

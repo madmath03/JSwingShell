@@ -30,19 +30,22 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
    *
    * @since 1.4
    */
-  private final transient List<AbstractJssActionWorker> activeWorkers = new ArrayList<>();
+  private final transient List<AbstractJssActionWorker> activeWorkers =
+      new ArrayList<>();
 
   // #########################################################################
-  public AbstractThreadedJssAction(String name, Icon icon, IJssController shellController,
-      String... args) {
+  public AbstractThreadedJssAction(String name, Icon icon,
+      IJssController shellController, String... args) {
     super(name, icon, shellController, args);
   }
 
-  public AbstractThreadedJssAction(String name, IJssController shellController, String... args) {
+  public AbstractThreadedJssAction(String name, IJssController shellController,
+      String... args) {
     super(name, shellController, args);
   }
 
-  public AbstractThreadedJssAction(IJssController shellController, String... args) {
+  public AbstractThreadedJssAction(IJssController shellController,
+      String... args) {
     super(shellController, args);
   }
 
@@ -91,15 +94,16 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
   }
 
   protected AbstractJssActionWorker prepareWorker() {
-    return prepareWorker(this.getDefaultShellController(), this.getDefaultArguments());
+    return prepareWorker(this.getDefaultShellController(),
+        this.getDefaultArguments());
   }
 
   protected AbstractJssActionWorker prepareWorker(String... args) {
     return prepareWorker(this.getDefaultShellController(), args);
   }
 
-  protected abstract AbstractJssActionWorker prepareWorker(IJssController shellController,
-      String... args);
+  protected abstract AbstractJssActionWorker prepareWorker(
+      IJssController shellController, String... args);
 
   /**
    * Get the list of active workers.
@@ -127,7 +131,8 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
    * @return <tt>false</tt> if the task could not be cancelled, typically because it has already
    *         completed normally; <tt>true</tt> otherwise
    */
-  public final boolean cancel(IJssController shellController, boolean mayInterruptIfRunning) {
+  public final boolean cancel(IJssController shellController,
+      boolean mayInterruptIfRunning) {
     boolean cancelled = true;
     List<AbstractJssActionWorker> workers = new ArrayList<>(activeWorkers);
     for (AbstractThreadedJssAction.AbstractJssActionWorker worker : workers) {
@@ -157,7 +162,8 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
      * @param chunkLevel the chunk's publication level
      * @param message the chunk's message
      */
-    public JssActionWorkerChunk(IJssController.PublicationLevel chunkLevel, String message) {
+    public JssActionWorkerChunk(IJssController.PublicationLevel chunkLevel,
+        String message) {
       this.chunkLevel = chunkLevel;
       this.message = message;
     }
@@ -256,7 +262,8 @@ public abstract class AbstractThreadedJssAction extends AbstractJssAction {
    *
    * @since 1.2
    */
-  public abstract class AbstractJssActionWorker extends SwingWorker<Integer, JssActionWorkerChunk> {
+  public abstract class AbstractJssActionWorker
+      extends SwingWorker<Integer, JssActionWorkerChunk> {
 
     /**
      * Reference on the shell controller.

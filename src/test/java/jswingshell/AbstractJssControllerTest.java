@@ -350,7 +350,8 @@ public class AbstractJssControllerTest {
     System.out.println("getCommandLineParser");
     AbstractJssController instance = new AbstractJssControllerImpl();
     AbstractJssController.CommandLineParser notExpResult = null;
-    AbstractJssController.CommandLineParser result = instance.getCommandLineParser();
+    AbstractJssController.CommandLineParser result =
+        instance.getCommandLineParser();
     assertNotEquals(notExpResult, result);
   }
 
@@ -569,7 +570,8 @@ public class AbstractJssControllerTest {
     String commandIdentifier = "";
     AbstractJssController instance = new AbstractJssControllerImpl();
     IJssAction expResult = null;
-    IJssAction result = instance.getActionForCommandIdentifier(commandIdentifier);
+    IJssAction result =
+        instance.getActionForCommandIdentifier(commandIdentifier);
     assertEquals(expResult, result);
   }
 

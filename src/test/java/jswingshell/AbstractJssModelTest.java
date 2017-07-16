@@ -238,7 +238,8 @@ public class AbstractJssModelTest {
     String commandIdentifier = "";
     AbstractJssModel instance = new AbstractJssModelImpl();
     IJssAction expResult = null;
-    IJssAction result = instance.getActionForCommandIdentifier(commandIdentifier);
+    IJssAction result =
+        instance.getActionForCommandIdentifier(commandIdentifier);
     assertEquals(expResult, result);
   }
 

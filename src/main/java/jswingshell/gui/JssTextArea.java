@@ -34,7 +34,8 @@ public class JssTextArea extends AbstractJssTextArea {
     super(controller, rows, columns);
   }
 
-  public JssTextArea(IJssController controller, String text, int rows, int columns) {
+  public JssTextArea(IJssController controller, String text, int rows,
+      int columns) {
     super(controller, text, rows, columns);
   }
 
@@ -42,7 +43,8 @@ public class JssTextArea extends AbstractJssTextArea {
     super(controller, doc);
   }
 
-  public JssTextArea(IJssController controller, Document doc, String text, int rows, int columns) {
+  public JssTextArea(IJssController controller, Document doc, String text,
+      int rows, int columns) {
     super(controller, doc, text, rows, columns);
   }
 

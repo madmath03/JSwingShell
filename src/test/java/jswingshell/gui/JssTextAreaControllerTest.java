@@ -112,7 +112,8 @@ public class JssTextAreaControllerTest {
   public void testSetShellText() {
     System.out.println("setShellText");
     String newShellText = "";
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setShellText(newShellText);
   }
 
@@ -122,7 +123,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testAddNewLineToShell_0args() {
     System.out.println("addNewLineToShell");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.addNewLineToShell();
   }
 
@@ -133,7 +135,8 @@ public class JssTextAreaControllerTest {
   public void testAddNewLineToShell_String() {
     System.out.println("addNewLineToShell");
     String text = "";
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.addNewLineToShell(text);
   }
 
@@ -143,7 +146,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetLastShellLinePosition() {
     System.out.println("getLastShellLinePosition");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     int expResult = 0;
     int result = instance.getLastShellLinePosition();
     assertEquals(expResult, result);
@@ -155,7 +159,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testAddNewCommandLine_0args() {
     System.out.println("addNewCommandLine");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.addNewCommandLine();
   }
 
@@ -166,7 +171,8 @@ public class JssTextAreaControllerTest {
   public void testAddNewCommandLine_String() {
     System.out.println("addNewCommandLine");
     String newCommandLine = "";
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.addNewCommandLine(newCommandLine);
   }
 
@@ -176,7 +182,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetCommandLine() {
     System.out.println("getCommandLine");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     String expResult = "";
     String result = instance.getCommandLine();
     assertEquals(expResult, result);
@@ -189,7 +196,8 @@ public class JssTextAreaControllerTest {
   public void testSetCommandLine() {
     System.out.println("setCommandLine");
     String newCommandLine = "";
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setCommandLine(newCommandLine);
   }
 
@@ -199,7 +207,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetCommandLinePosition() {
     System.out.println("getCommandLinePosition");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     int notExpResult = 0;
     int result = instance.getCommandLinePosition();
     assertTrue(notExpResult < result);
@@ -211,7 +220,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetCaretPosition() {
     System.out.println("getCaretPosition");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     int notExpResult = 0;
     int result = instance.getCaretPosition();
     assertTrue(notExpResult < result);
@@ -224,7 +234,8 @@ public class JssTextAreaControllerTest {
   public void testSetCaretPosition() {
     System.out.println("setCaretPosition");
     int caretPosition = 0;
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setCaretPosition(caretPosition);
   }
 
@@ -234,7 +245,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testSetCaretToEndOfDocument() {
     System.out.println("setCaretToEndOfDocument");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setCaretToEndOfDocument();
   }
 
@@ -245,7 +257,8 @@ public class JssTextAreaControllerTest {
   public void testMoveCaretPosition() {
     System.out.println("moveCaretPosition");
     int caretPosition = 0;
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.moveCaretPosition(caretPosition);
   }
 
@@ -255,7 +268,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testIsCaretBeforeStartOfCommandLine() {
     System.out.println("isCaretBeforeStartOfCommandLine");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     boolean expResult = false;
     boolean result = instance.isCaretBeforeStartOfCommandLine();
     assertEquals(expResult, result);
@@ -267,7 +281,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testIsCaretBeforeOrEqualToStartOfCommandLine() {
     System.out.println("isCaretBeforeOrEqualToStartOfCommandLine");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     boolean expResult = true;
     boolean result = instance.isCaretBeforeOrEqualToStartOfCommandLine();
     assertEquals(expResult, result);
@@ -279,7 +294,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testIsCaretAtStartOfCommandLine() {
     System.out.println("isCaretAtStartOfCommandLine");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     boolean expResult = true;
     boolean result = instance.isCaretAtStartOfCommandLine();
     assertEquals(expResult, result);
@@ -291,7 +307,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testIsCaretAfterOrEqualToStartOfCommandLine() {
     System.out.println("isCaretAfterOrEqualToStartOfCommandLine");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     boolean expResult = true;
     boolean result = instance.isCaretAfterOrEqualToStartOfCommandLine();
     assertEquals(expResult, result);
@@ -303,7 +320,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testIsCaretAfterStartOfCommandLine() {
     System.out.println("isCaretAfterStartOfCommandLine");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     boolean expResult = false;
     boolean result = instance.isCaretAfterStartOfCommandLine();
     assertEquals(expResult, result);
@@ -316,7 +334,8 @@ public class JssTextAreaControllerTest {
   public void testKeyPressed() {
     System.out.println("keyPressed");
     KeyEvent evt = null;
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.keyPressed(evt);
   }
 
@@ -326,7 +345,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testFixSelection() {
     System.out.println("fixSelection");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.fixSelection();
   }
 
@@ -336,7 +356,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetBackground() {
     System.out.println("getBackground");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     Color expResult = Color.BLACK;
     Color result = instance.getBackground();
     assertEquals(expResult, result);
@@ -349,7 +370,8 @@ public class JssTextAreaControllerTest {
   public void testSetBackground() {
     System.out.println("setBackground");
     Color backgroundColor = Color.WHITE;
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setBackground(backgroundColor);
   }
 
@@ -359,7 +381,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetForeground() {
     System.out.println("getForeground");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     Color expResult = Color.WHITE;
     Color result = instance.getForeground();
     assertEquals(expResult, result);
@@ -372,7 +395,8 @@ public class JssTextAreaControllerTest {
   public void testSetForeground() {
     System.out.println("setForeground");
     Color foregroundColor = Color.BLACK;
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setForeground(foregroundColor);
   }
 
@@ -382,7 +406,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetTabSize() {
     System.out.println("getTabSize");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     int expResult = 2;
     int result = instance.getTabSize();
     assertEquals(expResult, result);
@@ -395,7 +420,8 @@ public class JssTextAreaControllerTest {
   public void testSetTabSize() {
     System.out.println("setTabSize");
     int size = 0;
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setTabSize(size);
   }
 
@@ -405,7 +431,8 @@ public class JssTextAreaControllerTest {
   @Test
   public void testGetFont() {
     System.out.println("getFont");
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     Font notExpResult = null;
     Font result = instance.getFont();
     assertNotEquals(notExpResult, result);
@@ -418,7 +445,8 @@ public class JssTextAreaControllerTest {
   public void testSetFont() {
     System.out.println("setFont");
     Font f = null;
-    JssTextAreaController instance = new JssTextAreaController(new JssTextArea());
+    JssTextAreaController instance =
+        new JssTextAreaController(new JssTextArea());
     instance.setFont(f);
   }
 

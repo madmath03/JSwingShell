@@ -34,7 +34,8 @@ public class OverwriteCaret extends DefaultCaret {
   /**
    * Logger.
    */
-  private static final Logger LOGGER = Logger.getLogger(OverwriteCaret.class.getName());
+  private static final Logger LOGGER =
+      Logger.getLogger(OverwriteCaret.class.getName());
 
   /**
    * Constructor with blink rate.

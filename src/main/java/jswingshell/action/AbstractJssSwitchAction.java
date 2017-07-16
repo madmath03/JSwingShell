@@ -78,7 +78,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    *
    * @return a string describing the use of this shell command.
    */
-  protected static String getHelp(AbstractJssSwitchAction action, IJssController shellController) {
+  protected static String getHelp(AbstractJssSwitchAction action,
+      IJssController shellController) {
     StringBuilder stringBuilder = new StringBuilder();
 
     String commandIdsAsString = action.getCommandIdentifiersAsString();
@@ -157,7 +158,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    * @param selected is the action selected?
    * @param shellController the default shell controller
    */
-  public AbstractJssSwitchAction(Boolean selected, IJssController shellController) {
+  public AbstractJssSwitchAction(Boolean selected,
+      IJssController shellController) {
     super(shellController);
     setSelected(selected);
   }
@@ -169,7 +171,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssSwitchAction(IJssController shellController, String... args) {
+  public AbstractJssSwitchAction(IJssController shellController,
+      String... args) {
     super(shellController, args);
   }
 
@@ -181,7 +184,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssSwitchAction(Boolean selected, IJssController shellController, String... args) {
+  public AbstractJssSwitchAction(Boolean selected,
+      IJssController shellController, String... args) {
     super(shellController, args);
     setSelected(selected);
   }
@@ -194,7 +198,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssSwitchAction(String name, IJssController shellController, String... args) {
+  public AbstractJssSwitchAction(String name, IJssController shellController,
+      String... args) {
     super(name, shellController, args);
   }
 
@@ -207,8 +212,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssSwitchAction(Boolean selected, String name, IJssController shellController,
-      String... args) {
+  public AbstractJssSwitchAction(Boolean selected, String name,
+      IJssController shellController, String... args) {
     super(name, shellController, args);
     setSelected(selected);
   }
@@ -223,8 +228,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssSwitchAction(String name, Icon icon, IJssController shellController,
-      String... args) {
+  public AbstractJssSwitchAction(String name, Icon icon,
+      IJssController shellController, String... args) {
     super(name, icon, shellController, args);
   }
 
@@ -289,7 +294,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
       }
 
       if (shellController != null && switchValue == null) {
-        shellController.publish(IJssController.PublicationLevel.WARNING, getHelp(shellController));
+        shellController.publish(IJssController.PublicationLevel.WARNING,
+            getHelp(shellController));
       }
     } else {
       // If no arguments were given, toggle the state of the action
@@ -318,20 +324,26 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
       String commandIdentifier = getDefaultCommandIdentifier();
 
       boolean isSelected = sourceToggleButton.isSelected();
-      if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
-        eventArgs = new String[] {commandIdentifier, getOnArguments().iterator().next()};
+      if (isSelected && getOnArguments() != null
+          && !getOnArguments().isEmpty()) {
+        eventArgs = new String[] {commandIdentifier,
+            getOnArguments().iterator().next()};
       } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
-        eventArgs = new String[] {commandIdentifier, getOffArguments().iterator().next()};
+        eventArgs = new String[] {commandIdentifier,
+            getOffArguments().iterator().next()};
       }
     } else if (e != null && e.getSource() instanceof JCheckBoxMenuItem) {
       JCheckBoxMenuItem sourceCheckBox = (JCheckBoxMenuItem) e.getSource();
       String commandIdentifier = getDefaultCommandIdentifier();
 
       boolean isSelected = sourceCheckBox.isSelected();
-      if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
-        eventArgs = new String[] {commandIdentifier, getOnArguments().iterator().next()};
+      if (isSelected && getOnArguments() != null
+          && !getOnArguments().isEmpty()) {
+        eventArgs = new String[] {commandIdentifier,
+            getOnArguments().iterator().next()};
       } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
-        eventArgs = new String[] {commandIdentifier, getOffArguments().iterator().next()};
+        eventArgs = new String[] {commandIdentifier,
+            getOffArguments().iterator().next()};
       }
     } else if (e != null && e.getSource() instanceof JRadioButtonMenuItem) {
       JRadioButtonMenuItem sourceRadio = (JRadioButtonMenuItem) e.getSource();
@@ -339,20 +351,26 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
 
       // Consider the radio button as a check box (only works if action is registered in shell)
       boolean isSelected = sourceRadio.isSelected();
-      if (isSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
-        eventArgs = new String[] {commandIdentifier, getOnArguments().iterator().next()};
+      if (isSelected && getOnArguments() != null
+          && !getOnArguments().isEmpty()) {
+        eventArgs = new String[] {commandIdentifier,
+            getOnArguments().iterator().next()};
       } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
-        eventArgs = new String[] {commandIdentifier, getOffArguments().iterator().next()};
+        eventArgs = new String[] {commandIdentifier,
+            getOffArguments().iterator().next()};
       }
     } else {
       // If unidentified source or event, switch the state of the action itself
       Boolean isActionSelected = isSelected();
       if (isActionSelected != null) {
         String commandIdentifier = getDefaultCommandIdentifier();
-        if (!isActionSelected && getOnArguments() != null && !getOnArguments().isEmpty()) {
-          eventArgs = new String[] {commandIdentifier, getOnArguments().iterator().next()};
+        if (!isActionSelected && getOnArguments() != null
+            && !getOnArguments().isEmpty()) {
+          eventArgs = new String[] {commandIdentifier,
+              getOnArguments().iterator().next()};
         } else if (getOffArguments() != null && !getOffArguments().isEmpty()) {
-          eventArgs = new String[] {commandIdentifier, getOffArguments().iterator().next()};
+          eventArgs = new String[] {commandIdentifier,
+              getOffArguments().iterator().next()};
         }
       }
     }
@@ -424,7 +442,8 @@ public abstract class AbstractJssSwitchAction extends AbstractJssAction {
    *
    * @return {@code true} if the switch was done.
    */
-  protected abstract boolean doSwitch(IJssController shellController, Boolean switchValue);
+  protected abstract boolean doSwitch(IJssController shellController,
+      Boolean switchValue);
 
   @Override
   public void putValue(String key, Object newValue) {

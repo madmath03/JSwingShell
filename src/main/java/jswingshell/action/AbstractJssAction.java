@@ -20,7 +20,8 @@ import jswingshell.IJssController;
  *
  * @author Mathieu Brunot
  */
-public abstract class AbstractJssAction extends AbstractAction implements IJssAction {
+public abstract class AbstractJssAction extends AbstractAction
+    implements IJssAction {
 
   /**
    * The {@code serialVersionUID}.
@@ -29,7 +30,8 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
   /**
    * A map of actions with their full list of identifiers stored as a displayable {@code String}.
    */
-  protected static final Map<IJssAction, String> COMMAND_IDENTIFIERS_AS_STRING = new HashMap<>();
+  protected static final Map<IJssAction, String> COMMAND_IDENTIFIERS_AS_STRING =
+      new HashMap<>();
 
   /**
    * Get the full list of identifiers stored as a displayable {@code String} of a given action.
@@ -37,7 +39,8 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
    * @param action the action for which to retrieve the command identifiers
    * @return the full list of identifiers of the action
    */
-  protected static final String getCommandIdentifiersAsString(IJssAction action) {
+  protected static final String getCommandIdentifiersAsString(
+      IJssAction action) {
     if (action != null && !COMMAND_IDENTIFIERS_AS_STRING.containsKey(action)) {
       StringBuilder stringBuilder = new StringBuilder();
 
@@ -66,7 +69,8 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
    * @param arguments a {@code Collection} of arguments to be described
    * @return the displayable {@code String} of arguments
    */
-  public static final String getArgumentsAsString(Collection<String> arguments) {
+  public static final String getArgumentsAsString(
+      Collection<String> arguments) {
     Object[] args = (arguments != null ? arguments.toArray() : null);
     return getArgumentsAsString(args);
   }
@@ -139,7 +143,8 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssAction(String name, IJssController shellController, String... args) {
+  public AbstractJssAction(String name, IJssController shellController,
+      String... args) {
     super(name);
     this.shellController = shellController;
     this.args = args;
@@ -155,7 +160,8 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
    * @param shellController the default shell controller
    * @param args the default arguments for executing this action through a shell
    */
-  public AbstractJssAction(String name, Icon icon, IJssController shellController, String... args) {
+  public AbstractJssAction(String name, Icon icon,
+      IJssController shellController, String... args) {
     super(name, icon);
     this.shellController = shellController;
     this.args = args;
@@ -276,7 +282,8 @@ public abstract class AbstractJssAction extends AbstractAction implements IJssAc
       if (eventArgs != null && eventArgs.length > 0) {
         for (String arg : eventArgs) {
           commandBuilder.append("\"").append(arg).append("\"");
-          commandBuilder.append(defaultShellController.getCommandParameterSeparator());
+          commandBuilder
+              .append(defaultShellController.getCommandParameterSeparator());
         }
       } else {
         String[] commandIdentifiers = this.getCommandIdentifiers();

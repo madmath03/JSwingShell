@@ -116,7 +116,8 @@ public class ActionGroupTest {
     System.out.println("setSelected");
     AbstractJssSwitchAction a = new AbstractJssSwitchAction() {
       @Override
-      protected boolean doSwitch(IJssController shellController, Boolean switchValue) {
+      protected boolean doSwitch(IJssController shellController,
+          Boolean switchValue) {
         System.out.println("DummyAction.doSwitch");
         return true;
       }
@@ -157,7 +158,8 @@ public class ActionGroupTest {
     System.out.println("selection");
     AbstractJssSwitchAction a = new AbstractJssSwitchAction() {
       @Override
-      protected boolean doSwitch(IJssController shellController, Boolean switchValue) {
+      protected boolean doSwitch(IJssController shellController,
+          Boolean switchValue) {
         System.out.println("DummyAction.doSwitch");
         return true;
       }

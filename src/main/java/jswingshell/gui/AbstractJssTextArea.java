@@ -15,8 +15,8 @@ import jswingshell.IJssView;
  *
  * @author Mathieu Brunot
  */
-public abstract class AbstractJssTextArea extends jswingshell.gui.component.OverwritableTextArea
-    implements IJssView {
+public abstract class AbstractJssTextArea
+    extends jswingshell.gui.component.OverwritableTextArea implements IJssView {
 
   /**
    * The {@code serialVersionUID}.
@@ -46,7 +46,8 @@ public abstract class AbstractJssTextArea extends jswingshell.gui.component.Over
     this.controller = controller;
   }
 
-  public AbstractJssTextArea(IJssController controller, String text, int rows, int columns) {
+  public AbstractJssTextArea(IJssController controller, String text, int rows,
+      int columns) {
     super(text, rows, columns);
     this.controller = controller;
   }
@@ -56,8 +57,8 @@ public abstract class AbstractJssTextArea extends jswingshell.gui.component.Over
     this.controller = controller;
   }
 
-  public AbstractJssTextArea(IJssController controller, Document doc, String text, int rows,
-      int columns) {
+  public AbstractJssTextArea(IJssController controller, Document doc,
+      String text, int rows, int columns) {
     super(doc, text, rows, columns);
     this.controller = controller;
   }

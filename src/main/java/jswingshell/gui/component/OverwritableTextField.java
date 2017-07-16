@@ -345,10 +345,12 @@ public class OverwritableTextField extends JTextField {
 
   protected static final String keymapName = "OverwriteMap";
 
-  protected static final Action[] defaultActions = {new ToggleOverwriteAction()};
+  protected static final Action[] defaultActions =
+      {new ToggleOverwriteAction()};
 
   protected static JTextComponent.KeyBinding[] bindings =
-      {new JTextComponent.KeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0),
+      {new JTextComponent.KeyBinding(
+          KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0),
           toggleOverwriteAction)};
 
   /**
@@ -367,7 +369,8 @@ public class OverwritableTextField extends JTextField {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-      OverwritableTextField.setOverwriting(!OverwritableTextField.isOverwriting());
+      OverwritableTextField
+          .setOverwriting(!OverwritableTextField.isOverwriting());
       JTextComponent target = getFocusedComponent();
       if (target instanceof OverwritableTextField) {
         OverwritableTextField field = (OverwritableTextField) target;
